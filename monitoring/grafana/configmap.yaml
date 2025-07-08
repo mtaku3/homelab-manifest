@@ -1,0 +1,43 @@
+---
+# Source: kube-prometheus-stack/charts/grafana/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: monitoring-grafana
+  namespace: default
+  labels:
+    helm.sh/chart: grafana-9.2.10
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/version: "12.0.2"
+data:
+  
+  grafana.ini: |
+    [analytics]
+    check_for_updates = true
+    [grafana_net]
+    url = https://grafana.net
+    [log]
+    mode = console
+    [paths]
+    data = /var/lib/grafana/
+    logs = /var/log/grafana
+    plugins = /var/lib/grafana/plugins
+    provisioning = /etc/grafana/provisioning
+    [server]
+    root_url = "https://grafana.mtaku3.com"
+    [users]
+    disable_login_form = true
+    [auth.generic_oauth]
+    enabled = true
+    client_id = VPCsJdhPH9RMa1XCxj7T2eCc0Q2ORWHr0qEkwSmW
+    client_secret = IQeKdq7dPUxKCyUMeiGAF2tq51UCSAarp4b590iF4TpVbZyMb2dBtIpHxK6kx53UBj6NGAcTbuVYaJUh7G2Nhqtar4EgYDHHNzypYriFISbe3rUOppNLDpqtDs4lTXWS
+    auth_url = https://authentik.mtaku3.com/application/o/authorize/
+    token_url = https://authentik.mtaku3.com/application/o/token/
+    api_url = https://authentik.mtaku3.com/application/o/userinfo/
+    scopes = email
+    allow_sign_up = true
+    role_attribute_path = contains(roles[*], 'admin') && 'GrafanaAdmin' || 'None'
+    allow_assign_grafana_admin = true
+    org_attribute_path = roles
+    org_mapping = org_foo:org_foo:Viewer org_bar:org_bar:Editor *:org_baz:Editor

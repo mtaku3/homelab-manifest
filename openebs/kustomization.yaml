@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- openebs-crds/csi-volume-snapshot-class.yaml
+- openebs-crds/csi-volume-snapshot-content.yaml
+- openebs-crds/csi-volume-snapshot.yaml
+- storageclass.yaml
+- zfs-localpv/configmap.yaml
+- zfs-localpv/crds/zfsbackup.yaml
+- zfs-localpv/crds/zfsnode.yaml
+- zfs-localpv/crds/zfsrestore.yaml
+- zfs-localpv/crds/zfssnapshot.yaml
+- zfs-localpv/crds/zfsvolume.yaml
+- zfs-localpv/csidriver.yaml
+- zfs-localpv/priority-class.yaml
+- zfs-localpv/rbac.yaml
+- zfs-localpv/zfs-controller.yaml
+- zfs-localpv/zfs-node.yaml

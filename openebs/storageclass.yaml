@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+ name: openebs-zfspv
+parameters:
+ poolname: "rpool/openebs-zfspv"
+provisioner: zfs.csi.openebs.io
+allowedTopologies:
+  - matchLabelExpressions:
+    - key: openebs.io/nodeid
+      values:
+        - m5p01

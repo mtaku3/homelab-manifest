@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana
+
+spec:
+  secretName: grafana-tls
+  dnsNames:
+    - grafana.mtaku3.com
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+
