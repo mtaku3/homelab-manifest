@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: satisfactory
+spec:
+  selector:
+    matchLabels:
+      app: satisfactory
+  serviceName: satisfactory
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: satisfactory
+    spec:
+      containers:
+        - name: dedicated-server
+          image: wolveix/satisfactory-server:latest
+          env:
+            - name: MAXPLAYERS
+              value: "10"
+            - name: PGID
+              value: "1000"
+            - name: PUID
+              value: "1000"
+            - name: STEAMBETA
+              value: "false"
+          ports:
+            - name: game
+              containerPort: 7777
+            - name: messaging
+              containerPort: 8888
+          volumeMounts:
+            - name: data
+              mountPath: /config
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: 
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 32Gi
