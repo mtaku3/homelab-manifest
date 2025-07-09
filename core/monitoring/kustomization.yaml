@@ -61,6 +61,7 @@ resources:
 - grafana/dashboards-1.14/proxy.yaml
 - grafana/dashboards-1.14/scheduler.yaml
 - grafana/dashboards-1.14/workload-total.yaml
+- grafana/dashboards-1.14/node-exporter-full.yaml
 - grafana/deployment.yaml
 - grafana/role.yaml
 - grafana/rolebinding.yaml
@@ -68,9 +69,6 @@ resources:
 - grafana/service.yaml
 - grafana/serviceaccount.yaml
 - grafana/servicemonitor.yaml
-- grafana/tests/test-configmap.yaml
-- grafana/tests/test-serviceaccount.yaml
-- grafana/tests/test.yaml
 - grafana/certificate.yaml
 - grafana/ingressroute.yaml
 - kube-state-metrics/clusterrolebinding.yaml

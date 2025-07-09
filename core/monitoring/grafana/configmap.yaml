@@ -26,8 +26,6 @@ data:
     provisioning = /etc/grafana/provisioning
     [server]
     root_url = "https://grafana.mtaku3.com"
-    [users]
-    disable_login_form = true
     [auth.generic_oauth]
     enabled = true
     client_id = VPCsJdhPH9RMa1XCxj7T2eCc0Q2ORWHr0qEkwSmW
