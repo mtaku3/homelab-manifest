@@ -13,6 +13,7 @@ spec:
       labels:
         app: satisfactory
     spec:
+      terminationGracePeriodSeconds: 3600
       containers:
         - name: dedicated-server
           image: wolveix/satisfactory-server:latest
