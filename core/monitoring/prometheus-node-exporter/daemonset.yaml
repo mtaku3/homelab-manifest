@@ -102,6 +102,9 @@ spec:
               mountPath: /host/root
               mountPropagation: HostToContainer
               readOnly: true
+            - name: dbus
+              mountPath: /var/run/dbus/system_bus_socket
+              readOnly: true
       hostNetwork: true
       hostPID: true
       hostIPC: false
@@ -133,3 +136,6 @@ spec:
         - name: root
           hostPath:
             path: /
+        - name: dbus
+          hostPath:
+            path: /var/run/dbus/system_bus_socket
