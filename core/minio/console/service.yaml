@@ -1,0 +1,27 @@
+---
+# Source: minio/templates/console/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: objectstorage-minio-console
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: objectstorage
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/version: 2.0.2
+    helm.sh/chart: minio-17.0.11
+    app.kubernetes.io/component: console
+    app.kubernetes.io/part-of: minio
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 9090
+      targetPort: http
+      nodePort: null
+  selector:
+    app.kubernetes.io/instance: objectstorage
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/component: console
+    app.kubernetes.io/part-of: minio
