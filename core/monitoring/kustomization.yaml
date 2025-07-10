@@ -28,6 +28,7 @@ resources:
 - exporters/kube-scheduler/service.yaml
 - exporters/kube-scheduler/servicemonitor.yaml
 - exporters/kubelet/servicemonitor.yaml
+- grafana/certificate.yaml
 - grafana/clusterrole.yaml
 - grafana/clusterrolebinding.yaml
 - grafana/configmap-dashboard-provider.yaml
@@ -51,6 +52,7 @@ resources:
 - grafana/dashboards-1.14/namespace-by-pod.yaml
 - grafana/dashboards-1.14/namespace-by-workload.yaml
 - grafana/dashboards-1.14/node-cluster-rsrc-use.yaml
+- grafana/dashboards-1.14/node-exporter-full.yaml
 - grafana/dashboards-1.14/node-rsrc-use.yaml
 - grafana/dashboards-1.14/nodes-aix.yaml
 - grafana/dashboards-1.14/nodes-darwin.yaml
@@ -61,16 +63,15 @@ resources:
 - grafana/dashboards-1.14/proxy.yaml
 - grafana/dashboards-1.14/scheduler.yaml
 - grafana/dashboards-1.14/workload-total.yaml
-- grafana/dashboards-1.14/node-exporter-full.yaml
-- grafana/deployment.yaml
+- grafana/headless-service.yaml
+- grafana/ingressroute.yaml
 - grafana/role.yaml
 - grafana/rolebinding.yaml
 - grafana/secret.yaml
 - grafana/service.yaml
 - grafana/serviceaccount.yaml
 - grafana/servicemonitor.yaml
-- grafana/certificate.yaml
-- grafana/ingressroute.yaml
+- grafana/statefulset.yaml
 - kube-state-metrics/clusterrolebinding.yaml
 - kube-state-metrics/deployment.yaml
 - kube-state-metrics/role.yaml

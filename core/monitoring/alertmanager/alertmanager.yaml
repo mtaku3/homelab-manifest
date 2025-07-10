@@ -39,6 +39,17 @@ spec:
     runAsUser: 1000
     seccompProfile:
       type: RuntimeDefault
+  storage:
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 24Gi
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
