@@ -25,7 +25,7 @@ spec:
             - name: PUID
               value: "1000"
             - name: STEAMBETA
-              value: "false"
+              value: "true"
             - name: MULTIHOME
               value: "0.0.0.0"
           ports:
