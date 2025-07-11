@@ -54,6 +54,18 @@ spec:
           args:
             - -config.file=/etc/loki/config/config.yaml
             - -target=write
+            - -config.expand-env=true
+          env:
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki
+                  key: MINIO_ACCESS_KEY
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki
+                  key: MINIO_SECRET_KEY
           ports:
             - name: http-metrics
               containerPort: 3100

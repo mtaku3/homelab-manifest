@@ -12,7 +12,6 @@ metadata:
     app.kubernetes.io/version: "3.5.1"
 data:
   config.yaml: |
-    
     auth_enabled: false
     bloom_build:
       builder:
@@ -43,12 +42,12 @@ data:
       replication_factor: 1
       storage:
         s3:
-          access_key_id: readwrite
+          access_key_id: ${MINIO_ACCESS_KEY}
           bucketnames: monitoring-loki-chunks
-          endpoint: minio.default.svc:9000
+          endpoint: http://minio.default.svc.cluster.local:9000
           insecure: true
-          s3forcepathstyle: false
-          secret_access_key: 3NFUjk@kXRhE2Dg1^e^z#W6qENshx$uKG4@W3GEH
+          s3forcepathstyle: true
+          secret_access_key: ${MINIO_SECRET_KEY}
     frontend:
       scheduler_address: ""
       tail_proxy_url: ""

@@ -52,6 +52,18 @@ spec:
             - -target=read
             - -legacy-read-mode=false
             - -common.compactor-grpc-address=loki-backend.default.svc.cluster.local:9095
+            - -config.expand-env=true
+          env:
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki
+                  key: MINIO_ACCESS_KEY
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki
+                  key: MINIO_SECRET_KEY
           ports:
             - name: http-metrics
               containerPort: 3100
