@@ -26,6 +26,8 @@ spec:
               value: "1000"
             - name: STEAMBETA
               value: "false"
+            - name: MULTIHOME
+              value: "0.0.0.0"
           ports:
             - name: game
               containerPort: 7777

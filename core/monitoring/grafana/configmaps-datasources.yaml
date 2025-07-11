@@ -37,3 +37,11 @@ data:
       jsonData:
         handleGrafanaManagedAlerts: false
         implementation: prometheus
+    - name: "Loki"
+      type: loki
+      uid: loki
+      url: http://monitoring-loki-gateway
+      access: proxy
+      jsonData:
+        timeout: 60
+        maxLines: 1000

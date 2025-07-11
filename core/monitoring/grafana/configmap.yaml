@@ -36,6 +36,3 @@ data:
     scopes = email
     allow_sign_up = true
     role_attribute_path = contains(roles[*], 'admin') && 'GrafanaAdmin' || 'None'
-    allow_assign_grafana_admin = true
-    org_attribute_path = roles
-    org_mapping = org_foo:org_foo:Viewer org_bar:org_bar:Editor *:org_baz:Editor

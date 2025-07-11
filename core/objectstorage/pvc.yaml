@@ -1,0 +1,21 @@
+---
+# Source: minio/templates/pvc.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: objectstorage-minio
+  namespace: "default"
+  labels:
+    app.kubernetes.io/instance: objectstorage
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: minio
+    app.kubernetes.io/version: 2025.6.13
+    helm.sh/chart: minio-17.0.11
+    app.kubernetes.io/component: minio
+    app.kubernetes.io/part-of: minio
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "128Gi"

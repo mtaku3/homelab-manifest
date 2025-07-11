@@ -1,0 +1,85 @@
+---
+# Source: loki/templates/gateway/deployment-gateway-nginx.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-loki-gateway
+  namespace: default
+  labels:
+    helm.sh/chart: loki-6.31.0
+    app.kubernetes.io/name: loki
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/version: "3.5.1"
+    app.kubernetes.io/component: gateway
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: loki
+      app.kubernetes.io/instance: monitoring
+      app.kubernetes.io/component: gateway
+  template:
+    metadata:
+      annotations:
+        checksum/config: 440a9cd2e87de46e0aad42617818d58f1e2daacb1ae594bad1663931faa44ebc
+      labels:
+        app.kubernetes.io/name: loki
+        app.kubernetes.io/instance: monitoring
+        app.kubernetes.io/component: gateway
+    spec:
+      serviceAccountName: loki
+      enableServiceLinks: true
+      
+      securityContext:
+        fsGroup: 101
+        runAsGroup: 101
+        runAsNonRoot: true
+        runAsUser: 101
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: nginx
+          image: docker.io/nginxinc/nginx-unprivileged:1.28-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http-metrics
+              containerPort: 8080
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http-metrics
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            readOnlyRootFilesystem: true
+          volumeMounts:
+            - name: config
+              mountPath: /etc/nginx
+            - name: tmp
+              mountPath: /tmp
+            - name: docker-entrypoint-d-override
+              mountPath: /docker-entrypoint.d
+          resources:
+            {}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                app.kubernetes.io/component: gateway
+            topologyKey: kubernetes.io/hostname
+      volumes:
+        - name: config
+          configMap:
+            name: monitoring-loki-gateway
+        - name: tmp
+          emptyDir: {}
+        - name: docker-entrypoint-d-override
+          emptyDir: {}
