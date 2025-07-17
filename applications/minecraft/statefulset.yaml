@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: minecraft
+  labels:
+    app.kubernetes.io/name: minecraft
+spec:
+  serviceName: minecraft
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: minecraft
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: minecraft
+    spec:
+      containers:
+        - name: mc
+          env:
+            - name: ENABLE_WHITELIST
+              value: "true"
+            - name: WHITELIST
+              value: "mtaku3"
+            - name: DIFFICULTY
+              value: "normal"
+            - name: TYPE
+              value: "VANILLA"
+            - name: VERSION
+              value: "1.21.7"
+            - name: MAX_MEMORY
+              value: "6G"
+            - name: USE_AIKAR_FLAGS
+              value: "true"
+            - name: TZ
+              value: "Asia/Tokyo"
+            - name: EULA
+              value: "TRUE"
+          image: itzg/minecraft-server
+          imagePullPolicy: Always
+          stdin: true
+          tty: true
+          volumeMounts:
+            - mountPath: /data
+              name: minecraft
+          ports:
+            - name: minecraft
+              containerPort: 25565
+              protocol: TCP
+  volumeClaimTemplates:
+    - metadata:
+        name: minecraft
+        labels:
+          app.kubernetes.io/name: minecraft
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 4Gi
