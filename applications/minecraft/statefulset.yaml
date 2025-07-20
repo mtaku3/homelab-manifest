@@ -26,12 +26,16 @@ spec:
               value: "normal"
             - name: SPAWN_PROTECTION
               value: "0"
+            - name: SIMULATION_DISTANCE
+              value: "24"
+            - name: VIEW_DISTANCE
+              value: "32"
             - name: TYPE
               value: "VANILLA"
             - name: VERSION
               value: "1.21.8"
             - name: MAX_MEMORY
-              value: "6G"
+              value: "16G"
             - name: USE_AIKAR_FLAGS
               value: "true"
             - name: TZ
