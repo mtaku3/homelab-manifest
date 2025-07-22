@@ -22,6 +22,8 @@ spec:
               value: "true"
             - name: WHITELIST
               value: "mtaku3"
+            - name: OPS
+              value: "mtaku3"
             - name: DIFFICULTY
               value: "normal"
             - name: SPAWN_PROTECTION
@@ -44,6 +46,8 @@ spec:
               value: "false"
             - name: EULA
               value: "TRUE"
+            - name: PAUSE_WHEN_EMPTY_SECONDS
+              value: "-1"
           image: itzg/minecraft-server
           imagePullPolicy: Always
           stdin: true
