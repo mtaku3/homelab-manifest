@@ -59,6 +59,9 @@ spec:
             - name: minecraft
               containerPort: 25565
               protocol: TCP
+          resources:
+            requests:
+              cpu: 4
   volumeClaimTemplates:
     - metadata:
         name: minecraft
