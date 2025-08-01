@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: palworld
+  labels:
+    app.kubernetes.io/name: palworld
+  annotations:
+spec:
+  externalIPs:
+    - 202.215.58.76
+    - 192.168.10.2
+  ports:
+    - name: port1
+      port: 8211
+      targetPort: 8211
+      protocol: UDP
+    - name: port2
+      port: 27015
+      targetPort: 27015
+      protocol: UDP
+  selector:
+    app.kubernetes.io/name: palworld

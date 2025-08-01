@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: palworld
+  labels:
+    app.kubernetes.io/name: palworld
+spec:
+  serviceName: palworld
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: palworld
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: palworld
+    spec:
+      containers:
+        - name: palworld
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: PORT
+              value: "8211"
+            - name: SERVER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: palworld
+                  key: server-password
+            - name: MULTITHREADING
+              value: "true"
+            - name: RCON_ENABLED
+              value: "true"
+            - name: RCON_PORT
+              value: "25575"
+            - name: TZ
+              value: "UTC"
+            - name: ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: palworld
+                  key: admin-password
+            - name: COMMUNITY
+              value: "false"
+            - name: CROSSPLAY_PLATFORMS
+              value: "(Steam,Xbox,PS5,Mac)"
+            - name: AUTO_PAUSED_ENABLED
+              value: "true"
+            - name: EXP_RATE
+              value: "10"
+            - name: PAL_EGG_DEFAULT_HATCHING_TIME
+              value: "0"
+          image: thijsvanloef/palworld-server-docker:latest
+          imagePullPolicy: Always
+          stdin: true
+          tty: true
+          volumeMounts:
+            - mountPath: /palworld
+              name: palworld
+          ports:
+            - containerPort: 8211
+              protocol: UDP
+            - containerPort: 27015
+              protocol: UDP
+          resources:
+            requests:
+              cpu: 4
+  volumeClaimTemplates:
+    - metadata:
+        name: palworld
+        labels:
+          app.kubernetes.io/name: palworld
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 16Gi
