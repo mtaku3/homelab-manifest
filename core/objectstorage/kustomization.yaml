@@ -11,4 +11,6 @@ resources:
 - serviceaccount.yaml
 - servicemonitor.yaml
 - certificate.yaml
+- serverstransport.yaml
+- middleware.yaml
 - ingressroute.yaml
