@@ -1,6 +1,0 @@
-resources:
-  - ./secrets/cloudflare-api-key.yaml
-  - service-account.yaml
-  - cluster-role.yaml
-  - cluster-role-binding.yaml
-  - deployment.yaml
