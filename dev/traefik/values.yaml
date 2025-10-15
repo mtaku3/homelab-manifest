@@ -1,0 +1,11 @@
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
+    allowExternalNameServices: true
+
+logs:
+  general:
+    format: json
+
+service:
+  type: ClusterIP

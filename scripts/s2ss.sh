@@ -16,7 +16,7 @@ process_file() {
     echo "Sealing Secret in $file"
 
     # Try to seal, outputting errors to stderr naturally
-    if sealed_output=$(cat "$file" | kubeseal -o yaml 2>&1); then
+    if sealed_output=$(cat "$file" | kubeseal --controller-name sealed-secrets --controller-namespace sealed-secrets -o yaml 2>&1); then
       echo "$sealed_output" > "$file"
       echo "✅ Successfully sealed $file"
     else

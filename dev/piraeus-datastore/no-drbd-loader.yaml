@@ -1,0 +1,10 @@
+apiVersion: piraeus.io/v1
+kind: LinstorSatelliteConfiguration
+metadata:
+  name: no-drbd-loader
+spec:
+  podTemplate:
+    spec:
+      initContainers:
+        - name: drbd-module-loader
+          $patch: delete

@@ -1,0 +1,12 @@
+helmCharts:
+  - repo: https://charts.jetstack.io
+    name: cert-manager
+    version: "1.19.0"
+    includeCRDs: true
+    namespace: cert-manager
+    releaseName: cert-manager
+    valuesFile: values.yaml
+
+resources:
+  - secret.yaml
+  - cluster-issuer.yaml
