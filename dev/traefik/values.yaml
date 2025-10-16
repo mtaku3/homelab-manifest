@@ -8,4 +8,7 @@ logs:
     format: json
 
 service:
-  type: ClusterIP
+  type: NodePort
+  externalIPs:
+    - 192.168.10.2
+    - 202.215.58.76
