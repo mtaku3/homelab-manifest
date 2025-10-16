@@ -2,6 +2,7 @@ apiVersion: piraeus.io/v1
 kind: LinstorSatelliteConfiguration
 metadata:
   name: storage-pools
+  namespace: piraeus-datastore
 spec:
   storagePools:
     - name: rpool

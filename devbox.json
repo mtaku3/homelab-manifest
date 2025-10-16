@@ -3,7 +3,8 @@
   "packages": [
     "python@3.12",
     "wget@latest",
-    "python312Packages.pyyaml@latest"
+    "python312Packages.pyyaml@latest",
+    "yq@latest"
   ],
   "shell": {
     "init_hook": [

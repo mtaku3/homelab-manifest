@@ -2,6 +2,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: piraeus-storage
+  namespace: piraeus-datastore
   annotations:
     storageclass.kubernetes.io/is-default-class: "true"
 provisioner: linstor.csi.linbit.com

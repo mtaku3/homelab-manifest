@@ -2,6 +2,7 @@ apiVersion: piraeus.io/v1
 kind: LinstorSatelliteConfiguration
 metadata:
   name: no-drbd-loader
+  namespace: piraeus-datastore
 spec:
   podTemplate:
     spec:

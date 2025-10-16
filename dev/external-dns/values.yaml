@@ -7,5 +7,8 @@ env:
         name: cloudflare-api-key
         key: apiKey
 
+sources:
+  - traefik-proxy
+
 extraArgs:
   - "--default-targets=202.215.58.76"

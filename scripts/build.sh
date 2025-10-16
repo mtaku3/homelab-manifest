@@ -2,16 +2,19 @@
 
 set -euo pipefail
 
-if [ $# -lt 1 ]; then
-  echo "Usage: $0 TARGET_DIRECTORY"
+if [ "$#" -lt 1 ] || [ "$#" -gt 2 ]; then
+  echo >&2 "Usage: $0 <dir-to-build> [namespace]"
   exit 1
 fi
 
-TARGET="$1"
+DIR_TO_BUILD="$1"
 
-if [ ! -d "$TARGET" ]; then
-  echo "Error: '$TARGET' is not a directory."
-  exit 1
+if [ "$#" -eq 2 ]; then
+  NAMESPACE="$2"
+else
+  BASENAME=$(basename "$DIR_TO_BUILD")
+  NAMESPACE="$BASENAME"
 fi
 
-kustomize build "$1" --enable-helm
+kustomize build "$DIR_TO_BUILD" --enable-helm \
+  | yq ".metadata.namespace = (.metadata.namespace // \"$NAMESPACE\")"

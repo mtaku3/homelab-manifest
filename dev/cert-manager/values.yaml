@@ -1,7 +1,2 @@
-ingressShim:
-  defaultIssuerName: letsencrypt
-  defaultIssuerKind: ClusterIssuer
-  defaultIssuerGroup: cert-manager.io
-
 crds:
   enabled: true
