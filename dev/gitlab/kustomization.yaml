@@ -1,0 +1,11 @@
+helmCharts:
+  - repo: http://charts.gitlab.io/
+    name: gitlab
+    version: "9.5.0"
+    namespace: gitlab
+    releaseName: gitlab
+    valuesFile: values.yaml
+
+resources:
+  - certificate.yaml
+  - ingress-route.yaml

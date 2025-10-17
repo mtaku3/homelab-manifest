@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web
+  namespace: gitlab
+  annotations:
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`gitlab.mtaku3.com`)
+      kind: Rule
+      services:
+        - name: gitlab-webservice-default
+          port: http-workhorse
+  tls:
+    secretName: web-tls-cert

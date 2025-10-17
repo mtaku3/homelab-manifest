@@ -1,0 +1,18 @@
+global:
+  hosts:
+    domain: mtaku3.com
+
+  ingress:
+    enabled: false
+    configureCertmanager: false
+
+  hpa:
+    apiVersion: autoscaling/v2
+
+  pdb:
+    apiVersion: policy/v1
+
+nginx-ingress:
+  enabled: false
+
+installCertmanager: false
