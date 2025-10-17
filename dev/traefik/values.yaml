@@ -1,3 +1,11 @@
+ports:
+  web:
+    redirections:
+      entryPoint:
+        to: websecure
+        scheme: https
+        permanent: true
+
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
