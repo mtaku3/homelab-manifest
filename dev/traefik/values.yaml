@@ -17,6 +17,3 @@ logs:
 
 service:
   type: NodePort
-  externalIPs:
-    - 192.168.10.2
-    - 202.215.58.76
