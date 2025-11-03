@@ -7,7 +7,5 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
-  - web/certificate.yaml
-  - web/ingress-route.yaml
-  - registry/certificate.yaml
-  - registry/ingress-route.yaml
+  - certificate.yaml
+  - ingress-route.yaml
