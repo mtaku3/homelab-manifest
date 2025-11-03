@@ -16,4 +16,5 @@ logs:
     format: json
 
 service:
-  type: NodePort
+  type: LoadBalancer
+  loadBalancerClass: loxilb.io/loxilb

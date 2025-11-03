@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: loxilb-lb
+  namespace: kube-system
+spec:
+  template:
+    spec:
+      containers:
+      - name: loxilb-app
+        image: mtaku3/loxilb:v0.9.8.4
+        command:
+          - /root/loxilb-io/loxilb/loxilb
+        args:
+          - --egr-hooks
+          - --blacklist=cni[0-9a-z]|veth.|flannel.|cali.|tunl.|vxlan[.]calico|docker.|tailscale.

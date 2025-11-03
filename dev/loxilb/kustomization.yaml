@@ -1,0 +1,7 @@
+resources:
+  - https://raw.githubusercontent.com/loxilb-io/kube-loxilb/refs/tags/v0.9.8.4/manifest/in-cluster/loxilb-nobgp.yaml
+  - https://raw.githubusercontent.com/loxilb-io/kube-loxilb/refs/tags/v0.9.8.4/manifest/in-cluster/kube-loxilb.yaml
+
+patches:
+  - path: modify-kube-loxilb.yaml
+  - path: modify-loxilb.yaml
