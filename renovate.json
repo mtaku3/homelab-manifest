@@ -6,7 +6,7 @@
   "customManagers": [
     {
       "customType": "regex",
-      "managerFilePatterns": ["\\.ya?ml$"],
+      "managerFilePatterns": ["/.*y[a]?ml$/"],
       "matchStrings": [
         "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) version=(?<currentValue>\\S+)"
       ],
