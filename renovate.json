@@ -14,5 +14,11 @@
       "depNameTemplate": "{{depName}}",
       "versioningTemplate": "semver"
     }
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": ["loxilb-io/loxilb"],
+      "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:\\.(?<build>\\d+))?$"
+    }
   ]
 }
