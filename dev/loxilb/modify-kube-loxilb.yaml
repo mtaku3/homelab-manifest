@@ -11,9 +11,9 @@ spec:
           image: mtaku3/kube-loxilb:v0.9.8.4
           args:
             - --cidrPools=defaultPool=192.168.10.100/32
-            - --setBGP=64512
-            - --listenBGPPort=1791
             - --setRoles=0.0.0.0
+            # - --setBGP=64512
+            # - --listenBGPPort=1791
             # - --setLBMode=1
             # - --loxiURL=http://192.168.80.10:11111
             #- --monitor

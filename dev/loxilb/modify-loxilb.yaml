@@ -13,4 +13,4 @@ spec:
           - /root/loxilb-io/loxilb/loxilb
         args:
           - --egr-hooks
-          - --blacklist=cni[0-9a-z]|veth.|flannel.|cali.|tunl.|vxlan[.]calico|docker.|tailscale.
+          - --whitelist=enp.|wlp.
