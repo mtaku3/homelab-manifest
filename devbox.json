@@ -3,7 +3,7 @@
   "packages": [
     "python@3.12",
     "wget@latest",
-    "python312Packages.pyyaml@6.0.2",
+    "python312Packages.pyyaml@6.0.3",
     "yq@latest"
   ],
   "shell": {

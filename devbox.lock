@@ -5,67 +5,67 @@
       "last_modified": "2025-10-14T12:01:24Z",
       "resolved": "github:NixOS/nixpkgs/2ea123939c5cb71d2761896c27e475aeab266364?lastModified=1760443284&narHash=sha256-jDqjCfod2sCnsFSwTrHTU71El67OQ%2FXR2CDWcMR2JcY%3D"
     },
-    "python312Packages.pyyaml@6.0.2": {
-      "last_modified": "2025-10-07T08:41:47Z",
-      "resolved": "github:NixOS/nixpkgs/bce5fe2bb998488d8e7e7856315f90496723793c#python312Packages.pyyaml",
+    "python312Packages.pyyaml@6.0.3": {
+      "last_modified": "2025-10-22T20:59:19Z",
+      "resolved": "github:NixOS/nixpkgs/01b6809f7f9d1183a2b3e081f0a1e6f8f415cb09#python312Packages.pyyaml",
       "source": "devbox-search",
-      "version": "6.0.2",
+      "version": "6.0.3",
       "systems": {
         "aarch64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/gvxqkcnqacxnfkgi7fd1ljg2zi10bkba-python3.12-pyyaml-6.0.2",
+              "path": "/nix/store/rf9cs5813my3dskhcv085fy1y73s2i9h-python3.12-pyyaml-6.0.3",
               "default": true
             },
             {
               "name": "dist",
-              "path": "/nix/store/cv6zcf0zq8x0s5i8p71zjhg0gjwvdqrj-python3.12-pyyaml-6.0.2-dist"
+              "path": "/nix/store/zjhg1b16nn35pn3dq3j6ch6hlqcfygl3-python3.12-pyyaml-6.0.3-dist"
             }
           ],
-          "store_path": "/nix/store/gvxqkcnqacxnfkgi7fd1ljg2zi10bkba-python3.12-pyyaml-6.0.2"
+          "store_path": "/nix/store/rf9cs5813my3dskhcv085fy1y73s2i9h-python3.12-pyyaml-6.0.3"
         },
         "aarch64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/np6zc89z4gjpvrfd98rrsyp9zh6b1k7l-python3.12-pyyaml-6.0.2",
+              "path": "/nix/store/09l2602dx9vsqd7p2ffrqn0a1zm6kvrh-python3.12-pyyaml-6.0.3",
               "default": true
             },
             {
               "name": "dist",
-              "path": "/nix/store/2m8gwshy33kr00w7ayp2ac9pbla5bngg-python3.12-pyyaml-6.0.2-dist"
+              "path": "/nix/store/nipyl0nw0bgfzp5lfiwzxmfy7lwqfbs8-python3.12-pyyaml-6.0.3-dist"
             }
           ],
-          "store_path": "/nix/store/np6zc89z4gjpvrfd98rrsyp9zh6b1k7l-python3.12-pyyaml-6.0.2"
+          "store_path": "/nix/store/09l2602dx9vsqd7p2ffrqn0a1zm6kvrh-python3.12-pyyaml-6.0.3"
         },
         "x86_64-darwin": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/k2x6fff7yp3a2dgh6m1gznrbkfac3zs8-python3.12-pyyaml-6.0.2",
+              "path": "/nix/store/gq8lgxfshyac96q756hbrz4cwn0wdxib-python3.12-pyyaml-6.0.3",
               "default": true
             },
             {
               "name": "dist",
-              "path": "/nix/store/2kns5wdnxg96zcn5nchf7f6xrmmwnbli-python3.12-pyyaml-6.0.2-dist"
+              "path": "/nix/store/n0cj5mmd5c2fk7gkvc4sizfcdz2dhd0r-python3.12-pyyaml-6.0.3-dist"
             }
           ],
-          "store_path": "/nix/store/k2x6fff7yp3a2dgh6m1gznrbkfac3zs8-python3.12-pyyaml-6.0.2"
+          "store_path": "/nix/store/gq8lgxfshyac96q756hbrz4cwn0wdxib-python3.12-pyyaml-6.0.3"
         },
         "x86_64-linux": {
           "outputs": [
             {
               "name": "out",
-              "path": "/nix/store/9651xl317h3vwzxjaz7v4dk2jy8sghhk-python3.12-pyyaml-6.0.2",
+              "path": "/nix/store/xlifd64h55ilxhf2hn4b9frx4dh4m5xh-python3.12-pyyaml-6.0.3",
               "default": true
             },
             {
               "name": "dist",
-              "path": "/nix/store/rs9vx1d7kax0wwdxkyl13m6jz0mqw7kg-python3.12-pyyaml-6.0.2-dist"
+              "path": "/nix/store/68j8kn5dns92lhbxdfh1riy0j050qh9g-python3.12-pyyaml-6.0.3-dist"
             }
           ],
-          "store_path": "/nix/store/9651xl317h3vwzxjaz7v4dk2jy8sghhk-python3.12-pyyaml-6.0.2"
+          "store_path": "/nix/store/xlifd64h55ilxhf2hn4b9frx4dh4m5xh-python3.12-pyyaml-6.0.3"
         }
       }
     },
