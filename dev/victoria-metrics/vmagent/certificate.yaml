@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: vmagent-tls
+  namespace: victoria-metrics
+spec:
+  secretName: vmagent-tls-cert
+  dnsNames:
+    - vmagent.grafana.mtaku3.com
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

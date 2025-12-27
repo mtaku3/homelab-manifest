@@ -1,0 +1,63 @@
+defaultDashboard:
+  defaultTimezone: Asia/Tokyo
+
+kubeApiServer:
+  vmScrape:
+    spec:
+      endpoints:
+        - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+          port: https
+          scheme: https
+          tlsConfig:
+            caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            serverName: kubernetes.default.svc
+
+# kubectl create secret generic etcd-certs -n victoria-metrics \
+#   --from-file=ca.crt=/run/agenix/kubernetes/pki/etcd/ca.crt \
+#   --from-file=client.crt=/run/agenix/kubernetes/pki/etcd/healthcheck-client.crt \
+#   --from-file=client.key=/run/agenix/kubernetes/pki/etcd/healthcheck-client.key --dry-run=client -oyaml
+kubeEtcd:
+  endpoints:
+    - 192.168.10.2
+  vmScrape:
+    spec:
+      endpoints:
+        - port: http-metrics
+          scheme: https
+          tlsConfig:
+            ca:
+              secret:
+                name: etcd-certs
+                key: ca.crt
+            cert:
+              secret:
+                name: etcd-certs
+                key: client.crt
+            keySecret:
+              name: etcd-certs
+              key: client.key
+
+coreDns:
+  service:
+    port: 55
+    targetPort: 10055
+
+kubeScheduler:
+  endpoints:
+    - 192.168.10.2
+  service:
+    port: 10251
+    targetPort: 10251
+
+kubeControllerManager:
+  endpoints:
+    - 192.168.10.2
+  service:
+    port: 10252
+    targetPort: 10252
+
+victoria-metrics-operator:
+  enabled: false
+  crds:
+    cleanup:
+      enabled: false

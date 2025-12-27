@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vmagent
+  namespace: victoria-metrics
+  annotations:
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`vmagent.grafana.mtaku3.com`)
+      kind: Rule
+      services:
+        - name: vmagent-vm-victoria-metrics-k8s-stack
+          port: http
+  tls:
+    secretName: vmagent-tls-cert
+

@@ -1,0 +1,22 @@
+helmCharts:
+  - repo: https://victoriametrics.github.io/helm-charts/
+    name: victoria-metrics-k8s-stack
+    version: "0.63.1"
+    includeCRDs: true
+    namespace: victoria-metrics
+    releaseName: vm
+    valuesFile: values-k8s-stack.yaml
+  - repo: https://victoriametrics.github.io/helm-charts/
+    name: victoria-metrics-operator
+    version: "0.56.0"
+    includeCRDs: true
+    namespace: victoria-metrics
+    releaseName: vm
+    valuesFile: values-operator.yaml
+
+resources:
+  - grafana/certificate.yaml
+  - grafana/ingress-route.yaml
+  - vmagent/certificate.yaml
+  - vmagent/ingress-route.yaml
+  - secrets/etcd-certs.yaml

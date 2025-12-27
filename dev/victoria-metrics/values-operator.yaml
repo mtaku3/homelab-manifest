@@ -1,0 +1,6 @@
+crds:
+  plain: true
+
+admissionWebhooks:
+  certManager:
+    enabled: true
