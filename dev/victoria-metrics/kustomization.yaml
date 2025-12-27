@@ -17,6 +17,7 @@ helmCharts:
 resources:
   - grafana/certificate.yaml
   - grafana/ingress-route.yaml
+  - grafana/google-sso-secret.yaml
   - vmagent/certificate.yaml
   - vmagent/ingress-route.yaml
   - secrets/etcd-certs.yaml
