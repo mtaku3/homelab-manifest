@@ -1,0 +1,8 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: tinyauth
+  namespace: traefik
+spec:
+  forwardAuth:
+    address: http://tinyauth.traefik.svc.cluster.local/api/auth/traefik

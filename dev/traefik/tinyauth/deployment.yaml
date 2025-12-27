@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tinyauth
+  namespace: traefik
+  labels:
+    app: tinyauth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tinyauth
+  template:
+    metadata:
+      labels:
+        app: tinyauth
+    spec:
+      containers:
+        - name: tinyauth
+          image: ghcr.io/steveiliop56/tinyauth:v4
+          ports:
+            - containerPort: 3000
+          env:
+            - name: APP_URL
+              value: "https://tinyauth.mtaku3.com"
+            - name: APP_TITLE
+              value: "mtaku3's homelab"
+            - name: DISABLE_ANALYTICS
+              value: "true"
+            - name: OAUTH_AUTO_REDIRECT
+              value: "google"
+            - name: OAUTH_WHITELIST
+              value: "me@mtaku3.com"
+            - name: SECURE_COOKIE
+              value: "true"
+            - name: PROVIDERS_GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: google-sso-secret
+                  key: client-id
+            - name: PROVIDERS_GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: google-sso-secret
+                  key: client-secret
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 3000
+          readinessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 3000

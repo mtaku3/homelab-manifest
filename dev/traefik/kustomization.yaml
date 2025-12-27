@@ -6,3 +6,11 @@ helmCharts:
     namespace: traefik
     releaseName: traefik
     valuesFile: values.yaml
+
+resources:
+  - tinyauth/certificate.yaml
+  - tinyauth/deployment.yaml
+  - tinyauth/google-sso-secret.yaml
+  - tinyauth/ingress-route.yaml
+  - tinyauth/service.yaml
+  - tinyauth/middleware.yaml
