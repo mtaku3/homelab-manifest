@@ -1,0 +1,92 @@
+global:
+  domain: argocd.mtaku3.com
+
+configs:
+  params:
+    server.insecure: true 
+
+  cm:
+    url: https://argocd.mtaku3.com
+    dex.config: |
+      connectors:
+        - type: google
+          id: google
+          name: Google
+          config:
+            clientID: $google-sso-secret:client-id
+            clientSecret: $google-sso-secret:client-secret
+            hostedDomains:
+              - mtaku3.com
+
+  rbac:
+    scopes: "[email]"
+    policy.csv: |
+      g, me@mtaku3.com, role:admin
+    policy.default: role:readonly
+
+  cmp:
+    create: true
+    plugins:
+      homelab-manifest-build:
+        discover:
+          find:
+            command: ["/bin/bash", "-c"]
+            args:
+              - |
+                REPO_ROOT="${PWD%/$ARGOCD_APP_SOURCE_PATH}"
+                if [ -f "$REPO_ROOT/scripts/build.sh" ]; then
+                  echo "Found"
+                fi
+        generate:
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              set -euo pipefail
+
+              REPO_ROOT="${PWD%/$ARGOCD_APP_SOURCE_PATH}"
+              chmod +x "$REPO_ROOT/scripts/build.sh"
+              "$REPO_ROOT/scripts/build.sh" .
+
+redis-ha:
+  enabled: false
+
+redis:
+  enabled: true
+
+controller:
+  replicas: 1
+
+server:
+  replicas: 2
+
+repoServer:
+  replicas: 2
+
+  extraContainers:
+    - name: homelab-manifest-build-cmp
+      image: mtaku3/argocd-toolset:latest
+      imagePullPolicy: Always
+      command: [/var/run/argocd/argocd-cmp-server]
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 999
+      volumeMounts:
+        - mountPath: /var/run/argocd
+          name: var-files
+        - mountPath: /home/argocd/cmp-server/plugins
+          name: plugins
+        - mountPath: /home/argocd/cmp-server/config/plugin.yaml
+          subPath: homelab-manifest-build.yaml
+          name: argocd-cmp-cm-vol
+        - mountPath: /tmp
+          name: cmp-tmp
+
+  volumes:
+    - name: argocd-cmp-cm-vol
+      configMap:
+        name: argocd-cmp-cm
+    - name: cmp-tmp
+      emptyDir: {}
+
+applicationSet:
+  replicas: 2

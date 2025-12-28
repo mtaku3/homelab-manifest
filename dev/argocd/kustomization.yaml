@@ -1,0 +1,15 @@
+helmCharts:
+  - repo: https://argoproj.github.io/argo-helm
+    name: argo-cd
+    version: "9.2.2"
+    includeCRDs: true
+    namespace: argocd
+    releaseName: argocd
+    valuesFile: values.yaml
+
+resources:
+  - google-sso-secret.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+  - repo-homelab-manifest.yaml
+  - application-set.yaml
