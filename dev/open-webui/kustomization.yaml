@@ -1,0 +1,12 @@
+helmCharts:
+  - repo: https://helm.openwebui.com/
+    name: open-webui
+    version: "9.0.0"
+    namespace: open-webui
+    releaseName: open-webui
+    valuesFile: values.yaml
+
+resources:
+  - certificate.yaml
+  - ingress-route.yaml
+  - google-sso-secret.yaml

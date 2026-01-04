@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: web-tls
+  namespace: open-webui
+spec:
+  secretName: web-tls-cert
+  dnsNames:
+    - owui.mtaku3.com
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

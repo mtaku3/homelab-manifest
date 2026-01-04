@@ -1,0 +1,15 @@
+persistence:
+  size: 10Gi
+
+pipelines:
+  enabled: false
+
+sso:
+  enabled: true
+  enableSignup: true
+
+  google:
+    enabled: true
+    clientId: 810915113976-fibt7nic2sikoc60ipkkgccmb9drvg3g.apps.googleusercontent.com
+    clientExistingSecret: google-sso-secret
+    clientExistingSecretKey: client-secret
