@@ -88,3 +88,10 @@ victoria-metrics-operator:
   crds:
     cleanup:
       enabled: false
+
+vmagent:
+  enabled: false
+vmalert:
+  enabled: false
+grafana:
+  enabled: false
