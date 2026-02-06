@@ -94,6 +94,7 @@ kubeControllerManager:
     targetPort: 10252
 
 victoria-metrics-operator:
+  enabled: false
   crds:
     cleanup:
       enabled: false
