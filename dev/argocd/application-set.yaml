@@ -32,4 +32,3 @@ spec:
           - CreateNamespace=true
           - ServerSideApply=true
           - ForceConflicts=true
-          - ApplyOutOfSyncOnly=true
