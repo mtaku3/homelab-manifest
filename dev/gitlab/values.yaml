@@ -11,6 +11,9 @@ global:
 
   pdb:
     apiVersion: policy/v1
+
+  minio:
+    replicas: 1
 gitlab-runner:
   runners:
     config: |
@@ -33,6 +36,31 @@ gitlab-runner:
             BucketLocation = "us-east-1"
             Insecure = false
         {{ end }}
+
+gitlab:
+  webservice:
+    minReplicas: 1
+    maxReplicas: 1
+    workerProcesses: 1
+  sidekiq:
+    minReplicas: 1
+    maxReplicas: 1
+    concurrency: 10
+  gitlab-shell:
+    minReplicas: 1
+    maxReplicas: 1
+  kas:
+    enabled: false
+  registry:
+    minReplicas: 1
+    maxReplicas: 1
+  gitlab-exporter:
+    enabled: false
+  mailroom:
+    enabled: false
+
+prometheus:
+  install: false
 
 nginx-ingress:
   enabled: false

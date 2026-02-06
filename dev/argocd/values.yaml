@@ -3,7 +3,13 @@ global:
 
 configs:
   params:
-    server.insecure: true 
+    server.insecure: true
+    timeout.reconciliation: 600s
+    controller.status.processors: 5
+    controller.operation.processors: 3
+    controller.self.heal.timeout.seconds: 300
+    controller.kubectl.parallelism.limit: 5
+    reposerver.parallelism.limit: 2
 
   cm:
     url: https://argocd.mtaku3.com
@@ -57,10 +63,10 @@ controller:
   replicas: 1
 
 server:
-  replicas: 2
+  replicas: 1
 
 repoServer:
-  replicas: 2
+  replicas: 1
 
   extraContainers:
     - name: homelab-manifest-build-cmp
@@ -89,4 +95,4 @@ repoServer:
       emptyDir: {}
 
 applicationSet:
-  replicas: 2
+  replicas: 1

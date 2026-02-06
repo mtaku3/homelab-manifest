@@ -28,6 +28,16 @@ grafana:
 defaultDashboard:
   defaultTimezone: Asia/Tokyo
 
+vmsingle:
+  spec:
+    retentionPeriod: "14d"
+    extraArgs:
+      dedup.minScrapeInterval: "60s"
+
+defaultRules:
+  params:
+    scrapeInterval: 60s
+
 kubeApiServer:
   vmScrape:
     spec:
