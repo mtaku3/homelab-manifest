@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mt4jm-helm
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  ignoreDifferences:
+    - group: ""
+      kind: Secret
+      name: mt4jm-secret
+      namespace: mt4jm
+      jsonPointers:
+        - /data
+        - /stringData
+  sources:
+    - repoURL: https://github.com/mtaku3/miubiq-t4-job-manager.git
+      targetRevision: main
+      path: charts/miubiq-t4-job-manager
+      helm:
+        releaseName: mt4jm
+        valueFiles:
+          - $values/dev/mt4jm/values.yaml
+    - repoURL: https://github.com/mtaku3/homelab-manifest.git
+      targetRevision: HEAD
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: mt4jm
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
