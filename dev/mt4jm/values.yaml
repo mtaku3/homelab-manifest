@@ -1,0 +1,52 @@
+namespace: mt4jm
+fullnameOverride: mt4jm
+
+# External secret for values the chart cannot auto-generate (Google OAuth, VAPID keys)
+externalSecretName: mt4jm-external-secret
+
+web:
+  image:
+    repository: ghcr.io/mtaku3/miubiq-t4-job-manager-web
+    # renovate: datasource=docker depName=ghcr.io/mtaku3/miubiq-t4-job-manager-web
+    tag: latest
+    pullPolicy: IfNotPresent
+  ingress:
+    enabled: false
+
+t4Controller:
+  image:
+    repository: ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
+    # renovate: datasource=docker depName=ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
+    tag: latest
+    pullPolicy: IfNotPresent
+
+dbMigrate:
+  image:
+    repository: ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
+    # renovate: datasource=docker depName=ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
+    tag: latest
+    pullPolicy: IfNotPresent
+
+config:
+  tsubameSSHHost: login.t4.gsic.titech.ac.jp
+  tsubameSSHPort: "22"
+  syncIntervalSeconds: "30"
+  controllerPort: "3001"
+  vapidSubject: "mailto:admin@miubiq.example.com"
+
+postgresql:
+  auth:
+    database: t4_job_manager
+    existingSecret: mt4jm-secret
+    secretKeys:
+      adminPasswordKey: POSTGRES_PASSWORD
+  primary:
+    persistence:
+      size: 10Gi
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
