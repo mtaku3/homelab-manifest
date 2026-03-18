@@ -10,6 +10,7 @@ spec:
         github:
           owner: mtaku3
           repo: miubiq-t4-job-manager
+          appSecretName: repo-mt4jm
         requeueAfterSeconds: 300
   template:
     metadata:
