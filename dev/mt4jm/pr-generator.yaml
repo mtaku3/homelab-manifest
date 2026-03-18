@@ -31,7 +31,14 @@ spec:
                   tag: "sha-{{.head_short_sha}}"
                   pullPolicy: IfNotPresent
                 ingress:
-                  enabled: false
+                  enabled: true
+                  className: traefik
+                  host: "pr-{{.number}}.mt4jm.mtaku3.com"
+                  tls:
+                    enabled: true
+                    clusterIssuer: letsencrypt
+                  annotations:
+                    external-dns.alpha.kubernetes.io/target: "202.215.58.76"
               t4Controller:
                 image:
                   repository: ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
