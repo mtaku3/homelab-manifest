@@ -1,6 +1,9 @@
 namespace: mt4jm
 fullnameOverride: mt4jm
 
+imagePullSecrets:
+  - name: ghcr-pull-secret
+
 # External secret for values the chart cannot auto-generate (Google OAuth, VAPID keys)
 externalSecretName: mt4jm-external-secret
 
