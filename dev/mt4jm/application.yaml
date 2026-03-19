@@ -7,13 +7,15 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-    - scmProvider:
-        github:
-          organization: mtaku3
-          appSecretName: repo-mt4jm
-        filters:
-          - repositoryMatch: ^miubiq-t4-job-manager$
-            branchMatch: ^main$
+    - plugin:
+        configMapRef:
+          name: github-sha-plugin
+        input:
+          parameters:
+            owner: mtaku3
+            repo: miubiq-t4-job-manager
+            branch: main
+            appSecretName: repo-mt4jm
         requeueAfterSeconds: 300
   template:
     metadata:
