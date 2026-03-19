@@ -1,6 +1,5 @@
 resources:
   - application.yaml
-  - pr-generator.yaml
   - certificate.yaml
   - ingress-route.yaml
   - external-secret.yaml
