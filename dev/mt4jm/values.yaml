@@ -28,19 +28,18 @@ config:
   controllerPort: "3001"
   vapidSubject: "mailto:admin@miubiq.example.com"
 
-postgresql:
+postgres:
   auth:
     database: t4_job_manager
-    existingSecret: mt4jm-secret
+    existingSecret: mt4jm-postgres-auth
     secretKeys:
       adminPasswordKey: POSTGRES_PASSWORD
-  primary:
-    persistence:
-      size: 10Gi
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        cpu: 500m
-        memory: 512Mi
+  persistence:
+    size: 10Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
