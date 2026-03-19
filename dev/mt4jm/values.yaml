@@ -14,6 +14,7 @@ web:
     enabled: false
   extraEnv:
     AUTH_TRUST_HOST: "true"
+    AUTH_URL: "https://mt4jm.mtaku3.com"
 
 t4Controller:
   image:
