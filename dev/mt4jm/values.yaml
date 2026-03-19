@@ -12,6 +12,8 @@ web:
     repository: ghcr.io/mtaku3/miubiq-t4-job-manager-web
   ingress:
     enabled: false
+  extraEnv:
+    AUTH_TRUST_HOST: "true"
 
 t4Controller:
   image:
