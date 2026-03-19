@@ -4,3 +4,4 @@ resources:
   - certificate.yaml
   - ingress-route.yaml
   - external-secret.yaml
+  - postgres-secret.yaml
