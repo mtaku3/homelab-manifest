@@ -22,14 +22,6 @@ spec:
       name: mt4jm-helm
     spec:
       project: default
-      ignoreDifferences:
-        - group: ""
-          kind: Secret
-          name: mt4jm-secret
-          namespace: mt4jm
-          jsonPointers:
-            - /data
-            - /stringData
       sources:
         - repoURL: https://github.com/mtaku3/miubiq-t4-job-manager.git
           targetRevision: "{{.sha}}"

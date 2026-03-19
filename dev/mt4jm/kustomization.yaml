@@ -5,3 +5,4 @@ resources:
   - ingress-route.yaml
   - external-secret.yaml
   - ghcr-pull-secret.yaml
+  - postgres-secret.yaml
