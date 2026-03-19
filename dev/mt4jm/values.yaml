@@ -1,31 +1,25 @@
 namespace: mt4jm
 fullnameOverride: mt4jm
 
+imagePullSecrets:
+  - name: ghcr-pull-secret
+
 # External secret for values the chart cannot auto-generate (Google OAuth, VAPID keys)
 externalSecretName: mt4jm-external-secret
 
 web:
   image:
     repository: ghcr.io/mtaku3/miubiq-t4-job-manager-web
-    # renovate: datasource=docker depName=ghcr.io/mtaku3/miubiq-t4-job-manager-web
-    tag: latest
-    pullPolicy: IfNotPresent
   ingress:
     enabled: false
 
 t4Controller:
   image:
     repository: ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
-    # renovate: datasource=docker depName=ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
-    tag: latest
-    pullPolicy: IfNotPresent
 
 dbMigrate:
   image:
     repository: ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
-    # renovate: datasource=docker depName=ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
-    tag: latest
-    pullPolicy: IfNotPresent
 
 config:
   tsubameSSHHost: login.t4.gsic.titech.ac.jp

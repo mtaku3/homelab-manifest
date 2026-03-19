@@ -14,3 +14,4 @@ resources:
   - repo-homelab-manifest.yaml
   - repo-mt4jm.yaml
   - application-set.yaml
+  - github-sha-plugin/

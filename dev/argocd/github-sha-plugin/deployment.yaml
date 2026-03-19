@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: github-sha-plugin
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: github-sha-plugin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: github-sha-plugin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: github-sha-plugin
+    spec:
+      serviceAccountName: github-sha-plugin
+      containers:
+        - name: plugin
+          image: ghcr.io/mtaku3/argocd-github-sha-plugin:main
+          ports:
+            - containerPort: 4355
+          volumeMounts:
+            - name: token
+              mountPath: /var/run/argo
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 4355
+            initialDelaySeconds: 5
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 4355
+            initialDelaySeconds: 3
+            periodSeconds: 10
+      volumes:
+        - name: token
+          secret:
+            secretName: github-sha-plugin-secret
+            items:
+              - key: plugin-token
+                path: token
