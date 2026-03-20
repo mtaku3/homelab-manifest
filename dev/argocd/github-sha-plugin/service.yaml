@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: github-sha-plugin
+  namespace: argocd
+spec:
+  selector:
+    app.kubernetes.io/name: github-sha-plugin
+  ports:
+    - port: 4355
+      targetPort: 4355
