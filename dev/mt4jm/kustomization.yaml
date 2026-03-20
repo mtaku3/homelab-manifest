@@ -5,3 +5,4 @@ resources:
   - external-secret.yaml
   - ghcr-pull-secret.yaml
   - postgres-secret.yaml
+  - secret.yaml

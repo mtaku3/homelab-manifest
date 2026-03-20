@@ -1,5 +1,6 @@
 namespace: mt4jm
 fullnameOverride: mt4jm
+existingSecretName: mt4jm-secret
 
 imagePullSecrets:
   - name: ghcr-pull-secret
