@@ -30,7 +30,7 @@ config:
   tsubameSSHPort: "22"
   syncIntervalSeconds: "30"
   controllerPort: "3001"
-  vapidSubject: "mailto:admin@miubiq.example.com"
+  vapidSubject: "mailto:mt4jm@mtaku3.com"
 
 postgres:
   auth:
