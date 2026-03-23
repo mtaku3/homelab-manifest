@@ -20,6 +20,8 @@ web:
 t4Controller:
   image:
     repository: ghcr.io/mtaku3/miubiq-t4-job-manager-t4-controller
+  extraEnv:
+    QACCT_GRACE_SECONDS: "60"
 
 dbMigrate:
   image:
@@ -28,7 +30,7 @@ dbMigrate:
 config:
   tsubameSSHHost: login.t4.gsic.titech.ac.jp
   tsubameSSHPort: "22"
-  syncIntervalSeconds: "30"
+  syncIntervalSeconds: "60"
   controllerPort: "3001"
   vapidSubject: "mailto:mt4jm@mtaku3.com"
 
