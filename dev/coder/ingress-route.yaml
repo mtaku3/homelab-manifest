@@ -1,0 +1,38 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web
+  namespace: coder
+  annotations:
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`coder.mtaku3.com`)
+      kind: Rule
+      services:
+        - name: coder
+          port: http
+  tls:
+    secretName: coder-tls-cert
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web-wildcard
+  namespace: coder
+  annotations:
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+    external-dns.alpha.kubernetes.io/hostname: "*.coder.mtaku3.com"
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: HostRegexp(`^[a-z0-9-]+\.coder\.mtaku3\.com$`)
+      kind: Rule
+      services:
+        - name: coder
+          port: http
+  tls:
+    secretName: coder-tls-cert

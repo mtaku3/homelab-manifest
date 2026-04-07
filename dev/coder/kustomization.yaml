@@ -1,0 +1,20 @@
+helmCharts:
+  - repo: https://helm.coder.com/v2
+    name: coder
+    version: "2.29.5"
+    namespace: coder
+    releaseName: coder
+    valuesFile: values.yaml
+  - repo: https://cloudpirates-io.github.io/helm-charts
+    name: postgres
+    version: "0.18.3"
+    namespace: coder
+    releaseName: coder-postgres
+    valuesFile: postgres-values.yaml
+
+resources:
+  - certificate.yaml
+  - ingress-route.yaml
+  - postgres-secret.yaml
+  - db-url-secret.yaml
+  - google-sso-secret.yaml
