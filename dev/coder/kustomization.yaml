@@ -17,3 +17,4 @@ resources:
   - ingress-route.yaml
   - postgres-secret.yaml
   - db-url-secret.yaml
+  - google-sso-secret.yaml

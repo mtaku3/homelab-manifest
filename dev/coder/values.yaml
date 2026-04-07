@@ -9,6 +9,26 @@ coder:
       value: "https://coder.mtaku3.com"
     - name: CODER_WILDCARD_ACCESS_URL
       value: "*.coder.mtaku3.com"
+    - name: CODER_OIDC_ISSUER_URL
+      value: "https://accounts.google.com"
+    - name: CODER_OIDC_EMAIL_DOMAIN
+      value: "mtaku3.com"
+    - name: CODER_OIDC_USERNAME_FIELD
+      value: "email"
+    - name: CODER_OIDC_SIGN_IN_TEXT
+      value: "Sign in with Google"
+    - name: CODER_DISABLE_PASSWORD_AUTH
+      value: "true"
+    - name: CODER_OIDC_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: coder-oidc
+          key: CODER_OIDC_CLIENT_ID
+    - name: CODER_OIDC_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: coder-oidc
+          key: CODER_OIDC_CLIENT_SECRET
   service:
     type: ClusterIP
   ingress:
