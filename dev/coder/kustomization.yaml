@@ -12,4 +12,8 @@ helmCharts:
     releaseName: coder-postgres
     valuesFile: postgres-values.yaml
 
-resources: []
+resources:
+  - certificate.yaml
+  - ingress-route.yaml
+  - postgres-secret.yaml
+  - db-url-secret.yaml
