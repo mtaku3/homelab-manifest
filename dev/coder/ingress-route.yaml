@@ -29,7 +29,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: HostRegexp(`{subdomain:[a-z0-9-]+}.coder.mtaku3.com`)
+    - match: HostRegexp(`^[a-z0-9-]+\.coder\.mtaku3\.com$`)
       kind: Rule
       services:
         - name: coder
