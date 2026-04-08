@@ -14,7 +14,7 @@ coder:
     - name: CODER_OIDC_EMAIL_DOMAIN
       value: "mtaku3.com"
     - name: CODER_OIDC_USERNAME_FIELD
-      value: "email"
+      value: "sub"
     - name: CODER_OIDC_SIGN_IN_TEXT
       value: "Sign in with Google"
     - name: CODER_DISABLE_PASSWORD_AUTH
