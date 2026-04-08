@@ -30,10 +30,10 @@ The provider is exposed inside Coder with these properties:
 | ------------- | ----------------- |
 | ID            | `primary-github`  |
 | Type          | `github`          |
-| Regex         | `github\.com/mtaku3` |
 
-The regex restricts which git remotes trigger this auth provider, so only
-repos under `github.com/mtaku3` will prompt workspace users to authorize.
+No regex restriction is configured: the OAuth token's GitHub scopes already
+control which repos it can access, and public repos clone anonymously without
+needing this provider at all.
 
 ## Changes
 
@@ -59,15 +59,13 @@ kubectl create secret generic coder-github-external-auth \
 
 ### 2. `dev/coder/values.yaml`
 
-Append five env vars to `coder.env`:
+Append four env vars to `coder.env`:
 
 ```yaml
 - name: CODER_EXTERNAL_AUTH_0_ID
   value: "primary-github"
 - name: CODER_EXTERNAL_AUTH_0_TYPE
   value: "github"
-- name: CODER_EXTERNAL_AUTH_0_REGEX
-  value: "github\\.com/mtaku3"
 - name: CODER_EXTERNAL_AUTH_0_CLIENT_ID
   valueFrom:
     secretKeyRef:
