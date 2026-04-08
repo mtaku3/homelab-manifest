@@ -18,3 +18,4 @@ resources:
   - postgres-secret.yaml
   - db-url-secret.yaml
   - google-sso-secret.yaml
+  - github-external-auth-secret.yaml
