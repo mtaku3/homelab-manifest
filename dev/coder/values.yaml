@@ -47,6 +47,10 @@ coder:
         secretKeyRef:
           name: coder-github-external-auth
           key: CODER_EXTERNAL_AUTH_0_CLIENT_SECRET
+    - name: CODER_EXTERNAL_AUTH_0_APP_INSTALL_URL
+      value: "https://github.com/apps/mtaku3-homelab-coder/installations/new"
+    - name: CODER_EXTERNAL_AUTH_0_APP_INSTALLATIONS_URL
+      value: "https://api.github.com/user/installations"
   service:
     type: ClusterIP
   ingress:
