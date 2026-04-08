@@ -33,6 +33,22 @@ coder:
         secretKeyRef:
           name: coder-oidc
           key: CODER_OIDC_CLIENT_SECRET
+    - name: CODER_EXTERNAL_AUTH_0_ID
+      value: "primary-github"
+    - name: CODER_EXTERNAL_AUTH_0_TYPE
+      value: "github"
+    - name: CODER_EXTERNAL_AUTH_0_REGEX
+      value: "github\\.com/mtaku3"
+    - name: CODER_EXTERNAL_AUTH_0_CLIENT_ID
+      valueFrom:
+        secretKeyRef:
+          name: coder-github-external-auth
+          key: CODER_EXTERNAL_AUTH_0_CLIENT_ID
+    - name: CODER_EXTERNAL_AUTH_0_CLIENT_SECRET
+      valueFrom:
+        secretKeyRef:
+          name: coder-github-external-auth
+          key: CODER_EXTERNAL_AUTH_0_CLIENT_SECRET
   service:
     type: ClusterIP
   ingress:
