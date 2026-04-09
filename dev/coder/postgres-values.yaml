@@ -1,8 +1,0 @@
-auth:
-  username: coder
-  database: coder
-  existingSecret: coder-postgres-auth
-  secretKeys:
-    adminPasswordKey: POSTGRES_PASSWORD
-persistence:
-  size: 10Gi
