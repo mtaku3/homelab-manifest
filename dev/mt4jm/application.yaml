@@ -56,3 +56,4 @@ spec:
         syncOptions:
           - CreateNamespace=true
           - ServerSideApply=true
+          - ForceConflicts=true
