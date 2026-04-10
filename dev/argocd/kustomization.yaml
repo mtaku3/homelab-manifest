@@ -8,10 +8,10 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
+  - applications/
   - google-sso-secret.yaml
   - certificate.yaml
   - ingress-route.yaml
   - repo-homelab-manifest.yaml
   - repo-mt4jm.yaml
-  - application-set.yaml
   - github-sha-plugin/
