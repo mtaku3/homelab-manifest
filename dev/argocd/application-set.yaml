@@ -4,6 +4,8 @@ metadata:
   name: homelab-apps
   namespace: argocd
 spec:
+  syncPolicy:
+    preserveResourcesOnDeletion: true
   generators:
     - git:
         repoURL: https://github.com/mtaku3/homelab-manifest.git
