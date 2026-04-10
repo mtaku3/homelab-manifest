@@ -8,16 +8,7 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
-  - application.yaml
-  - app-cert-manager.yaml
-  - app-external-dns.yaml
-  - app-gitlab.yaml
-  - app-loxilb.yaml
-  - app-open-webui.yaml
-  - app-piraeus-datastore.yaml
-  - app-sealed-secrets.yaml
-  - app-traefik.yaml
-  - app-victoria-metrics.yaml
+  - applications/
   - google-sso-secret.yaml
   - certificate.yaml
   - ingress-route.yaml
