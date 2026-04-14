@@ -4,7 +4,7 @@ metadata:
   name: argocd-server
   namespace: argocd
   annotations:
-    external-dns.alpha.kubernetes.io/target: 133.18.105.254
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
 spec:
   entryPoints:
     - websecure
