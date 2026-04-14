@@ -4,7 +4,7 @@ metadata:
   name: tinyauth
   namespace: traefik
   annotations:
-    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+    external-dns.alpha.kubernetes.io/target: 133.18.105.254
 spec:
   entryPoints:
     - websecure

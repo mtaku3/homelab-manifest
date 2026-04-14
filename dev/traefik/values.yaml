@@ -17,5 +17,6 @@ logs:
     level: WARN
 
 service:
-  type: LoadBalancer
-  loadBalancerClass: loxilb.io/loxilb
+  type: ClusterIP
+  externalIPs:
+    - 100.83.165.61
