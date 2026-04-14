@@ -1,0 +1,5 @@
+# renovate: datasource=github-releases depName=loxilb-io/loxilb version=v0.9.8.4
+
+resources:
+  - loxilb.yaml
+  - kube-loxilb.yaml
