@@ -11,6 +11,14 @@ spec:
     path: dev/obot
     plugin:
       name: homelab-manifest-build
+  ignoreDifferences:
+    - group: apps
+      kind: StatefulSet
+      jqPathExpressions:
+        - .spec.volumeClaimTemplates[]?.status
+        - .spec.volumeClaimTemplates[]?.apiVersion
+        - .spec.volumeClaimTemplates[]?.kind
+        - .spec.volumeClaimTemplates[].spec.volumeMode
   destination:
     server: https://kubernetes.default.svc
     namespace: obot
@@ -22,3 +30,4 @@ spec:
       - CreateNamespace=true
       - ServerSideApply=true
       - ForceConflicts=true
+      - RespectIgnoreDifferences=true
