@@ -51,7 +51,8 @@ configs:
 
               REPO_ROOT="${PWD%/$ARGOCD_APP_SOURCE_PATH}"
               chmod +x "$REPO_ROOT/scripts/build.sh"
-              "$REPO_ROOT/scripts/build.sh" .
+              NAMESPACE="${PARAM_NAMESPACE:-$ARGOCD_APP_NAMESPACE}"
+              "$REPO_ROOT/scripts/build.sh" . "$NAMESPACE"
 
 redis-ha:
   enabled: false
