@@ -12,7 +12,7 @@ spec:
     - match: Host(`obot.mtaku3.com`)
       kind: Rule
       services:
-        - name: obot
+        - name: obot-obot
           port: 80
   tls:
     secretName: web-tls-cert
