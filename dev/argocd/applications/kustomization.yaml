@@ -4,6 +4,7 @@ resources:
   - external-dns.yaml
   - gitlab.yaml
   - loxilb.yaml
+  - obot.yaml
   - open-webui.yaml
   - piraeus-datastore.yaml
   - sealed-secrets.yaml
