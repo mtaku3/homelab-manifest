@@ -1,0 +1,22 @@
+fullnameOverride: obot-postgres
+
+image:
+  registry: docker.io
+  repository: pgvector/pgvector
+  tag: "pg17"
+
+auth:
+  existingSecret: obot-postgres-auth
+  secretKeys:
+    adminPasswordKey: postgres-password
+
+customUser:
+  existingSecret: obot-postgres-auth
+  secretKeys:
+    name: CUSTOM_USER
+    database: CUSTOM_DB
+    password: CUSTOM_PASSWORD
+
+persistence:
+  enabled: true
+  size: 10Gi
