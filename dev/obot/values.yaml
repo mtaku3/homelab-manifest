@@ -2,10 +2,9 @@ config:
   existingSecret: "obot-secret"
   OBOT_SERVER_ENCRYPTION_PROVIDER: "custom"
   OBOT_SERVER_MCPRUNTIME_BACKEND: "kubernetes"
-  OBOT_SERVER_NANOBOT_INTEGRATION: false
-
 extraEnv:
   OBOT_SERVER_ENCRYPTION_CONFIG_FILE: "/config/encryption.yaml"
+  OBOT_SERVER_NANOBOT_INTEGRATION: "false"
 
 ingress:
   enabled: false
