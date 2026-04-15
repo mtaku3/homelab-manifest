@@ -3,6 +3,9 @@ config:
   OBOT_SERVER_ENCRYPTION_PROVIDER: "custom"
   OBOT_SERVER_MCPRUNTIME_BACKEND: "kubernetes"
 
+extraEnv:
+  OBOT_SERVER_ENCRYPTION_CONFIG_FILE: "/config/encryption.yaml"
+
 ingress:
   enabled: false
 
