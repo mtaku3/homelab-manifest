@@ -1,6 +1,7 @@
 resources:
   - argocd.yaml
   - cert-manager.yaml
+  - cloudcli.yaml
   - external-dns.yaml
   - gitlab.yaml
   - loxilb.yaml
