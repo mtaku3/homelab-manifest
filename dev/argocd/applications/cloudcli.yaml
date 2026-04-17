@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudcli
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mtaku3/homelab-manifest.git
+    targetRevision: HEAD
+    path: dev/cloudcli
+    plugin:
+      name: homelab-manifest-build
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cloudcli
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - ForceConflicts=true
