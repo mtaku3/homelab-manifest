@@ -17,5 +17,10 @@ logs:
     level: WARN
 
 service:
-  type: LoadBalancer
-  loadBalancerClass: loxilb.io/loxilb
+  type: NodePort
+
+ports:
+  web:
+    nodePort: 80
+  websecure:
+    nodePort: 443
