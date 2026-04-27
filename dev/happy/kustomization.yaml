@@ -1,0 +1,15 @@
+helmCharts:
+  - repo: https://cloudpirates-io.github.io/helm-charts
+    name: postgres
+    version: "0.19.2"
+    namespace: happy
+    releaseName: happy-postgres
+    valuesFile: values-postgres.yaml
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+  - sealed-secret.yaml
+  - postgres-sealed-secret.yaml
