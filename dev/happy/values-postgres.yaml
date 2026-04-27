@@ -6,7 +6,6 @@ auth:
   existingSecret: happy-postgres-auth
   secretKeys:
     adminPasswordKey: POSTGRES_PASSWORD
-    userPasswordKey: POSTGRES_PASSWORD
 
 primary:
   persistence:
