@@ -5,3 +5,4 @@ resources:
   - ssh-secret.yaml
   - idrac-secret.yaml
   - ghcr-pull-secret.yaml
+  - form-secret.yaml

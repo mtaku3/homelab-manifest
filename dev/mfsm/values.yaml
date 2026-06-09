@@ -21,11 +21,11 @@ check:
   expectedDisks: 8
   cacheTtlSeconds: 30
 
-# Google Form pre-fill (optional). Empty => the report button opens a blank form.
+# Google Form pre-fill. Sourced from the fs-monitor-form Secret (keys: FORM_BASE_URL,
+# FORM_ENTRY_TEMP, FORM_ENTRY_DISKS). Entry IDs currently empty => button opens the form
+# without prefilling temp/disks; reseal the Secret with entry.NNN to enable prefill.
 form:
-  baseUrl: ""
-  entryTemp: ""
-  entryDisks: ""
+  existingSecret: fs-monitor-form
 
 service:
   port: 80
