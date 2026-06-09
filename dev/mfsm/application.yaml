@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: mfsm-helm
+  namespace: argocd
+spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
+  generators:
+    - plugin:
+        configMapRef:
+          name: github-sha-plugin
+        input:
+          parameters:
+            owner: mtaku3
+            repo: miubiq-fs-monitor
+            branch: main
+            appSecretName: repo-mfsm
+        requeueAfterSeconds: 300
+  template:
+    metadata:
+      name: mfsm-helm
+    spec:
+      project: default
+      sources:
+        - repoURL: https://github.com/mtaku3/miubiq-fs-monitor.git
+          targetRevision: "{{.sha}}"
+          path: charts/fs-monitor
+          helm:
+            releaseName: fs-monitor
+            valueFiles:
+              - $values/dev/mfsm/values.yaml
+            valuesObject:
+              image:
+                tag: "sha-{{.short_sha_7}}"
+                pullPolicy: IfNotPresent
+        - repoURL: https://github.com/mtaku3/homelab-manifest.git
+          targetRevision: HEAD
+          ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: mfsm
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          - ServerSideApply=true
+          - ForceConflicts=true

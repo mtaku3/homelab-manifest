@@ -1,0 +1,8 @@
+resources:
+  - application.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+  - ssh-secret.yaml
+  - idrac-secret.yaml
+  - ghcr-pull-secret.yaml
+  - form-secret.yaml

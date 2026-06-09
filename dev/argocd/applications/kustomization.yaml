@@ -3,6 +3,7 @@ resources:
   - cert-manager.yaml
   - external-dns.yaml
   - gitlab.yaml
+  - mfsm.yaml
   - open-webui.yaml
   - piraeus-datastore.yaml
   - sealed-secrets.yaml
