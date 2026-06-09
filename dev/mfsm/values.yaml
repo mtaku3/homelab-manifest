@@ -1,0 +1,31 @@
+# Values for charts/fs-monitor (loaded by the mfsm-helm ApplicationSet via $values).
+# image.tag is injected per-sync by the ApplicationSet (sha-<short>); do not set it here.
+image:
+  repository: ghcr.io/mtaku3/miubiq-fs-monitor
+
+imagePullSecrets:
+  - name: ghcr-pull-secret
+
+ssh:
+  host: fs.miubiq.cs.titech.ac.jp
+  port: 24322
+  user: matsushita
+  existingSecret: fs-monitor-ssh      # keys: id_rsa
+
+idrac:
+  host: 172.16.0.44
+  existingSecret: fs-monitor-idrac    # keys: username, password
+
+check:
+  tempThreshold: 35
+  expectedDisks: 8
+  cacheTtlSeconds: 30
+
+# Google Form pre-fill (optional). Empty => the report button opens a blank form.
+form:
+  baseUrl: ""
+  entryTemp: ""
+  entryDisks: ""
+
+service:
+  port: 80

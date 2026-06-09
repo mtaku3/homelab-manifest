@@ -14,4 +14,5 @@ resources:
   - ingress-route.yaml
   - repo-homelab-manifest.yaml
   - repo-mt4jm.yaml
+  - repo-mfsm.yaml
   - github-sha-plugin/

@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: web-tls
+  namespace: mfsm
+spec:
+  secretName: web-tls-cert
+  dnsNames:
+    - mfsm.mtaku3.com
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

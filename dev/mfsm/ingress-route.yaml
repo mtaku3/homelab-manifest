@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web
+  namespace: mfsm
+  annotations:
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`mfsm.mtaku3.com`)
+      kind: Rule
+      middlewares:
+        - name: tinyauth
+          namespace: traefik
+      services:
+        - name: fs-monitor
+          port: http
+  tls:
+    secretName: web-tls-cert
