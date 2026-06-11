@@ -1,0 +1,61 @@
+# Control-plane components (etcd, scheduler, controller-manager) run as systemd
+# services on the NixOS node, not as pods. The chart scrapes them via a manual
+# Endpoints object, but ArgoCD's resource.exclusions excludes Endpoints, so that
+# object is never managed and stays frozen at the node's install-time IP. Scrape
+# the node directly instead (kubeScheduler/kubeControllerManager/kubeEtcd have
+# service.enabled=false in values-k8s-stack.yaml). jobName values match the
+# labels the bundled VMRules/dashboards expect (job="kube-scheduler", etc.).
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMStaticScrape
+metadata:
+  name: kube-scheduler
+  namespace: victoria-metrics
+spec:
+  jobName: kube-scheduler
+  targetEndpoints:
+    - targets:
+        - "192.168.10.102:10251"
+      scheme: https
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      tlsConfig:
+        insecureSkipVerify: true
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMStaticScrape
+metadata:
+  name: kube-controller-manager
+  namespace: victoria-metrics
+spec:
+  jobName: kube-controller-manager
+  targetEndpoints:
+    - targets:
+        - "192.168.10.102:10252"
+      scheme: https
+      bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      tlsConfig:
+        insecureSkipVerify: true
+---
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMStaticScrape
+metadata:
+  name: kube-etcd
+  namespace: victoria-metrics
+spec:
+  jobName: kube-etcd
+  targetEndpoints:
+    - targets:
+        - "192.168.10.102:2379"
+      scheme: https
+      tlsConfig:
+        ca:
+          secret:
+            name: etcd-certs
+            key: ca.crt
+        cert:
+          secret:
+            name: etcd-certs
+            key: client.crt
+        keySecret:
+          name: etcd-certs
+          key: client.key
+        insecureSkipVerify: true
