@@ -9,3 +9,28 @@ helmCharts:
 resources:
   - certificate.yaml
   - ingress-route.yaml
+
+# webservice and gitlab-shell are pinned to minReplicas==maxReplicas==1, but the
+# gitlab chart still emits an HPA for every enabled component (no disable toggle;
+# keda is off). A min==max HPA permanently reports current==max, firing
+# KubeHpaMaxedOut. These components aren't meant to autoscale, so drop their HPAs
+# (the Deployments keep their fixed 1 replica). ArgoCD prunes the removed objects.
+patches:
+  - target:
+      kind: HorizontalPodAutoscaler
+      name: gitlab-webservice-default
+    patch: |
+      $patch: delete
+      apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+      metadata:
+        name: gitlab-webservice-default
+  - target:
+      kind: HorizontalPodAutoscaler
+      name: gitlab-gitlab-shell
+    patch: |
+      $patch: delete
+      apiVersion: autoscaling/v2
+      kind: HorizontalPodAutoscaler
+      metadata:
+        name: gitlab-gitlab-shell
