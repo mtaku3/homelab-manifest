@@ -97,3 +97,62 @@ repoServer:
 
 applicationSet:
   replicas: 1
+
+notifications:
+  secret:
+    create: false
+  notifiers:
+    service.webhook.discord-deployments: |
+      url: $discord-deployments
+      headers:
+        - name: Content-Type
+          value: application/json
+    service.webhook.discord-cluster-events: |
+      url: $discord-cluster-events
+      headers:
+        - name: Content-Type
+          value: application/json
+  templates:
+    template.discord-sync-failed: |
+      webhook:
+        discord-deployments:
+          method: POST
+          body: |
+            {"embeds":[{"title":{{ printf "❌ %s — sync failed" .app.metadata.name | quote }},"description":{{ .app.status.operationState.message | quote }},"color":15158332}]}
+    template.discord-deployed: |
+      webhook:
+        discord-deployments:
+          method: POST
+          body: |
+            {"embeds":[{"title":{{ printf "✅ %s — deployed" .app.metadata.name | quote }},"description":{{ printf "revision %s" .app.status.sync.revision | quote }},"color":3066993}]}
+    template.discord-health-degraded: |
+      webhook:
+        discord-cluster-events:
+          method: POST
+          body: |
+            {"embeds":[{"title":{{ printf "⚠️ %s — Degraded" .app.metadata.name | quote }},"description":{{ .app.status.health.message | quote }},"color":15105570}]}
+    template.discord-sync-running: |
+      webhook:
+        discord-cluster-events:
+          method: POST
+          body: |
+            {"embeds":[{"title":{{ printf "🔄 %s — sync running" .app.metadata.name | quote }},"color":3447003}]}
+  triggers:
+    trigger.on-sync-failed: |
+      - when: app.status.operationState.phase in ['Error', 'Failed']
+        send: [discord-sync-failed]
+    trigger.on-deployed: |
+      - when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
+        send: [discord-deployed]
+        oncePer: app.status.sync.revision
+    trigger.on-health-degraded: |
+      - when: app.status.health.status == 'Degraded'
+        send: [discord-health-degraded]
+    trigger.on-sync-running: |
+      - when: app.status.operationState.phase in ['Running']
+        send: [discord-sync-running]
+  subscriptions:
+    - recipients: [discord-deployments]
+      triggers: [on-sync-failed, on-deployed]
+    - recipients: [discord-cluster-events]
+      triggers: [on-health-degraded, on-sync-running]
