@@ -64,9 +64,20 @@ kubeApiServer:
 # chart Service/Endpoints for these and scrape the node directly via VMStaticScrape
 # (see control-plane-scrapes.yaml). service.enabled=false keeps the bundled
 # VMRules + dashboards (only the Service+Endpoints are dropped).
+#
+# With the Service gone, the chart renders the leftover VMServiceScrape with an
+# EMPTY selector (matchLabels {}), which matches ALL kube-system services on the
+# http-metrics port -> it hijacks core-dns (port http-metrics/10055) and scrapes
+# it over https, failing. Pin each scrape's selector to its own (now non-existent)
+# Service label so it matches nothing instead of everything.
 kubeEtcd:
   service:
     enabled: false
+  vmScrape:
+    spec:
+      selector:
+        matchLabels:
+          app: vm-victoria-metrics-k8s-stack-kube-etcd
 
 coreDns:
   service:
@@ -76,10 +87,20 @@ coreDns:
 kubeScheduler:
   service:
     enabled: false
+  vmScrape:
+    spec:
+      selector:
+        matchLabels:
+          app: vm-victoria-metrics-k8s-stack-kube-scheduler
 
 kubeControllerManager:
   service:
     enabled: false
+  vmScrape:
+    spec:
+      selector:
+        matchLabels:
+          app: vm-victoria-metrics-k8s-stack-kube-controller-manager
 
 victoria-metrics-operator:
   enabled: false
