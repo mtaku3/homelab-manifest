@@ -47,10 +47,10 @@ spec:
         - "192.168.10.102:2379"
       scheme: https
       tlsConfig:
-        ca:
-          secret:
-            name: etcd-certs
-            key: ca.crt
+        # etcd's CA cert is not deployed to the node as a file, so we cannot
+        # verify etcd's server cert -> insecureSkipVerify. We still present a
+        # client cert (etcd requires --client-cert-auth); healthcheck-client is
+        # signed by etcd's CA so etcd trusts it.
         cert:
           secret:
             name: etcd-certs
