@@ -107,3 +107,32 @@ victoria-metrics-operator:
   crds:
     cleanup:
       enabled: false
+
+alertmanager:
+  spec:
+    secrets:
+      - discord-webhook
+  config:
+    route:
+      receiver: blackhole
+      group_by: ["alertname", "namespace"]
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 4h
+      routes:
+        - matchers: ['alertname=~"Watchdog|InfoInhibitor"']
+          receiver: blackhole
+        - matchers: ['severity="critical"']
+          receiver: discord-critical
+        - matchers: ['severity="warning"']
+          receiver: discord-warning
+    receivers:
+      - name: blackhole
+      - name: discord-critical
+        discord_configs:
+          - webhook_url_file: /etc/vm/secrets/discord-webhook/webhook-critical
+            send_resolved: true
+      - name: discord-warning
+        discord_configs:
+          - webhook_url_file: /etc/vm/secrets/discord-webhook/webhook-warning
+            send_resolved: true

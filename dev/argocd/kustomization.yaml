@@ -16,3 +16,4 @@ resources:
   - repo-mt4jm.yaml
   - repo-mfsm.yaml
   - github-sha-plugin/
+  - notifications-secret.yaml
