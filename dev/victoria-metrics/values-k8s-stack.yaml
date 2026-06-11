@@ -130,9 +130,9 @@ alertmanager:
       - name: blackhole
       - name: discord-critical
         discord_configs:
-          - webhook_url_file: /etc/alertmanager/secrets/discord-webhook/webhook-critical
+          - webhook_url_file: /etc/vm/secrets/discord-webhook/webhook-critical
             send_resolved: true
       - name: discord-warning
         discord_configs:
-          - webhook_url_file: /etc/alertmanager/secrets/discord-webhook/webhook-warning
+          - webhook_url_file: /etc/vm/secrets/discord-webhook/webhook-warning
             send_resolved: true
