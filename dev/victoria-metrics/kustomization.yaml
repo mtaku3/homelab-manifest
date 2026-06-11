@@ -22,3 +22,4 @@ resources:
   - vmagent/ingress-route.yaml
   - secrets/etcd-certs.yaml
   - control-plane-scrapes.yaml
+  - secrets/discord-webhook.yaml
