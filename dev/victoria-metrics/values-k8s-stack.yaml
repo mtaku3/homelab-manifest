@@ -49,10 +49,14 @@ kubeApiServer:
             caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
             serverName: kubernetes.default.svc
 
-# kubectl create secret generic etcd-certs -n victoria-metrics \
-#   --from-file=ca.crt=/run/agenix/kubernetes/pki/etcd/ca.crt \
-#   --from-file=client.crt=/run/agenix/kubernetes/pki/etcd/healthcheck-client.crt \
-#   --from-file=client.key=/run/agenix/kubernetes/pki/etcd/healthcheck-client.key --dry-run=client -oyaml
+# etcd-certs holds the client cert vmagent presents to etcd (mTLS). Regenerate
+# from the node's live etcd PKI and re-seal when the node/PKI is rebuilt:
+#   sudo kubectl create secret generic etcd-certs -n victoria-metrics \
+#     --from-file=client.crt=/run/agenix/homelab-k8s/etcd/healthcheck-client.crt \
+#     --from-file=client.key=/run/agenix/homelab-k8s/etcd/healthcheck-client.key \
+#     --dry-run=client -o yaml \
+#   | kubeseal --format yaml --controller-namespace sealed-secrets \
+#       --controller-name sealed-secrets > secrets/etcd-certs.yaml
 # etcd/scheduler/controller-manager run as systemd services on the NixOS node,
 # not pods. The chart wires them up via a manual Endpoints object, but ArgoCD's
 # resource.exclusions excludes Endpoints (chart default), so that object is never
