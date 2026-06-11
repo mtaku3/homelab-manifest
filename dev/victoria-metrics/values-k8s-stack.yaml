@@ -53,26 +53,16 @@ kubeApiServer:
 #   --from-file=ca.crt=/run/agenix/kubernetes/pki/etcd/ca.crt \
 #   --from-file=client.crt=/run/agenix/kubernetes/pki/etcd/healthcheck-client.crt \
 #   --from-file=client.key=/run/agenix/kubernetes/pki/etcd/healthcheck-client.key --dry-run=client -oyaml
+# etcd/scheduler/controller-manager run as systemd services on the NixOS node,
+# not pods. The chart wires them up via a manual Endpoints object, but ArgoCD's
+# resource.exclusions excludes Endpoints (chart default), so that object is never
+# managed and stays frozen at the node's install-time IP -> "No data". Disable the
+# chart Service/Endpoints for these and scrape the node directly via VMStaticScrape
+# (see control-plane-scrapes.yaml). service.enabled=false keeps the bundled
+# VMRules + dashboards (only the Service+Endpoints are dropped).
 kubeEtcd:
-  endpoints:
-    - 192.168.10.102
-  vmScrape:
-    spec:
-      endpoints:
-        - port: http-metrics
-          scheme: https
-          tlsConfig:
-            ca:
-              secret:
-                name: etcd-certs
-                key: ca.crt
-            cert:
-              secret:
-                name: etcd-certs
-                key: client.crt
-            keySecret:
-              name: etcd-certs
-              key: client.key
+  service:
+    enabled: false
 
 coreDns:
   service:
@@ -80,18 +70,12 @@ coreDns:
     targetPort: 10055
 
 kubeScheduler:
-  endpoints:
-    - 192.168.10.102
   service:
-    port: 10251
-    targetPort: 10251
+    enabled: false
 
 kubeControllerManager:
-  endpoints:
-    - 192.168.10.102
   service:
-    port: 10252
-    targetPort: 10252
+    enabled: false
 
 victoria-metrics-operator:
   enabled: false

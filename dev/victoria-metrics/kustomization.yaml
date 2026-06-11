@@ -21,3 +21,4 @@ resources:
   - vmagent/certificate.yaml
   - vmagent/ingress-route.yaml
   - secrets/etcd-certs.yaml
+  - control-plane-scrapes.yaml
