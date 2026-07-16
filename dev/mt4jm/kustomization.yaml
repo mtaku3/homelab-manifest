@@ -1,5 +1,10 @@
 resources:
-  - application.yaml
+  # mt4jm suspended 2026-07-16: ApplicationSet removed from the cluster and
+  # workloads scaled to 0 (Postgres PVC and secrets retained). To re-enable,
+  # uncomment application.yaml below and `kubectl apply -f application.yaml`
+  # (dev/mt4jm has no root Application reconciling it — the former `mt4jm`
+  # Application no longer exists in the cluster).
+  # - application.yaml
   - certificate.yaml
   - ingress-route.yaml
   - external-secret.yaml
