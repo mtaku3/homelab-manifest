@@ -1,0 +1,11 @@
+resources:
+  - deployment.yaml
+  - service.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+  - nginx-config.yaml
+  - relay-certificate.yaml
+  - relay-deployment.yaml
+  - relay-ingress-route.yaml
+  - relay-service.yaml
+  - ghcr-pull-secret.yaml

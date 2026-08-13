@@ -5,6 +5,7 @@ resources:
   - gitlab.yaml
   - mfsm.yaml
   - open-webui.yaml
+  - paseo.yaml
   - piraeus-datastore.yaml
   - sealed-secrets.yaml
   - traefik.yaml
