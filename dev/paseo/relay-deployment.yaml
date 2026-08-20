@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: paseo-relay
+  namespace: paseo
+  labels:
+    app: paseo-relay
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: paseo-relay
+  template:
+    metadata:
+      labels:
+        app: paseo-relay
+    spec:
+      terminationGracePeriodSeconds: 45
+      imagePullSecrets:
+        - name: ghcr-pull-secret
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: relay
+          image: ghcr.io/mtaku3/paseo-relay:7e52c8c7c96f1b8049c39acb5208012c57eb0af0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 4000
+          env:
+            - name: HOME
+              value: /tmp
+            - name: ELIXIR_ERL_OPTIONS
+              value: +fnu
+            - name: PASEO_RELAY_HOST
+              value: 0.0.0.0
+            - name: PASEO_RELAY_PORT
+              value: "4000"
+            - name: PASEO_RELAY_MIN_CLUSTER_SIZE
+              value: "1"
+            - name: PASEO_RELAY_ACCEPTORS
+              value: "20"
+            - name: PASEO_RELAY_CONNECTIONS_PER_ACCEPTOR
+              value: "100"
+            - name: PASEO_RELAY_INGRESS_BUDGET_BYTES
+              value: "134217728"
+            - name: PASEO_RELAY_MEMORY_WATERMARK_BYTES
+              value: "402653184"
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "1"
+              memory: "512Mi"
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 30
+            timeoutSeconds: 3
+            failureThreshold: 3
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 16Mi

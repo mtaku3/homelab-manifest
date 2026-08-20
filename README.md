@@ -12,6 +12,7 @@ dev/
   gitlab/             # Self-hosted GitLab
   mt4jm/              # Personal app
   open-webui/         # LLM chat UI
+  paseo/              # Web client and public relay for local Paseo daemons
   piraeus-datastore/  # LINSTOR-backed storage
   sealed-secrets/     # Encrypted secrets at rest in git
   traefik/            # Ingress + tinyauth

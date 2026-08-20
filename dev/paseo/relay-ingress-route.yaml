@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: relay
+  namespace: paseo
+  annotations:
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`relay.paseo.mtaku3.com`) && PathPrefix(`/ws`)
+      kind: Rule
+      services:
+        - name: paseo-relay
+          port: http
+  tls:
+    secretName: relay-tls-cert
