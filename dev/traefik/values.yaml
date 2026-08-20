@@ -9,7 +9,13 @@ ports:
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
-    allowExternalNameServices: true
+    # Off deliberately. CVE-2021-25740 (design flaw, wontfix) names "disable or
+    # restrict Ingress implementations' ability to forward to ExternalName
+    # Services" as a mitigation: with it on, anyone who can create a Service can
+    # make Traefik proxy to any address it can reach, NetworkPolicy included.
+    # Nothing in this cluster uses ExternalName -- dev/openclaw reaches helios
+    # through a selector-less Service plus an EndpointSlice instead.
+    allowExternalNameServices: false
 
 logs:
   general:

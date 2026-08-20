@@ -13,6 +13,71 @@ configs:
 
   cm:
     url: https://argocd.mtaku3.com
+
+    # Verbatim copy of the argo-cd 9.2.2 chart default, minus its
+    # "Network resources created by the Kubernetes control plane" entry
+    # (''/Endpoints + discovery.k8s.io/EndpointSlice).
+    #
+    # dev/openclaw declares an EndpointSlice by hand to point Traefik at the
+    # gateway on helios. While that kind is excluded, Argo CD drops it from the
+    # desired state without a word: it is never applied, and the Application
+    # still reports Synced/Healthy over a Service with no endpoints.
+    #
+    # The churn this exclusion exists to avoid is already handled -- the chart
+    # ships resource.customizations.ignoreResourceUpdates for EndpointSlice and
+    # Endpoints, documented as "Ignores update if EndpointSlice is not excluded
+    # globally", so this is an anticipated configuration.
+    #
+    # NOTE: this is a full replacement, not a merge. Re-check it against the
+    # chart's values.yaml whenever renovate bumps the argo-cd version.
+    resource.exclusions: |
+      ### Internal Kubernetes resources excluded reduce the number of watched events
+      - apiGroups:
+        - coordination.k8s.io
+        kinds:
+        - Lease
+      ### Internal Kubernetes Authz/Authn resources excluded reduce the number of watched events
+      - apiGroups:
+        - authentication.k8s.io
+        - authorization.k8s.io
+        kinds:
+        - SelfSubjectReview
+        - TokenReview
+        - LocalSubjectAccessReview
+        - SelfSubjectAccessReview
+        - SelfSubjectRulesReview
+        - SubjectAccessReview
+      ### Intermediate Certificate Request excluded reduce the number of watched events
+      - apiGroups:
+        - certificates.k8s.io
+        kinds:
+        - CertificateSigningRequest
+      - apiGroups:
+        - cert-manager.io
+        kinds:
+        - CertificateRequest
+      ### Cilium internal resources excluded reduce the number of watched events and UI Clutter
+      - apiGroups:
+        - cilium.io
+        kinds:
+        - CiliumIdentity
+        - CiliumEndpoint
+        - CiliumEndpointSlice
+      ### Kyverno intermediate and reporting resources excluded reduce the number of watched events and improve performance
+      - apiGroups:
+        - kyverno.io
+        - reports.kyverno.io
+        - wgpolicyk8s.io
+        kinds:
+        - PolicyReport
+        - ClusterPolicyReport
+        - EphemeralReport
+        - ClusterEphemeralReport
+        - AdmissionReport
+        - ClusterAdmissionReport
+        - BackgroundScanReport
+        - ClusterBackgroundScanReport
+        - UpdateRequest
     dex.config: |
       connectors:
         - type: google
