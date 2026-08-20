@@ -6,3 +6,10 @@ metadata:
 spec:
   forwardAuth:
     address: http://tinyauth.traefik.svc.cluster.local/api/auth/traefik
+    # Copy tinyauth's verified identity onto the forwarded request. Traefik
+    # replaces any conflicting client-supplied header with the auth response's
+    # value, so these cannot be spoofed through the proxy. openclaw consumes
+    # Remote-Email as its trusted-proxy userHeader.
+    authResponseHeaders:
+      - Remote-User
+      - Remote-Email
