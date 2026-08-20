@@ -1,0 +1,13 @@
+# openclaw does not run in the cluster: the gateway is a systemd --user unit on
+# helios (192.168.10.101). A selector-less Service plus the hand-written
+# EndpointSlice beside it lets Traefik route to that host as if it were a pod.
+apiVersion: v1
+kind: Service
+metadata:
+  name: openclaw
+  namespace: openclaw
+spec:
+  ports:
+    - name: http
+      port: 18789
+      protocol: TCP
