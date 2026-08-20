@@ -9,14 +9,12 @@ spec:
   entryPoints:
     - websecure
   routes:
-    # tinyauth is the only thing between the internet and an agent that runs as
-    # mtaku3 on helios. It also supplies the Remote-Email header the gateway's
-    # trusted-proxy auth mode verifies.
+    # No forward auth: the gateway authenticates clients itself with a shared
+    # token, and reaching the Control UI additionally takes a device approval on
+    # helios. Trusted-proxy auth would have let tinyauth stand in for the token,
+    # but the Android app cannot present proxy identity headers.
     - match: Host(`openclaw.mtaku3.com`)
       kind: Rule
-      middlewares:
-        - name: tinyauth
-          namespace: traefik
       services:
         - name: openclaw
           port: http
