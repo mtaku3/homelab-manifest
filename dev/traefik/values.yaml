@@ -18,6 +18,8 @@ logs:
 
 service:
   type: NodePort
+  spec:
+    externalTrafficPolicy: Local
 
 ports:
   web:
