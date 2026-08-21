@@ -9,14 +9,8 @@ spec:
   entryPoints:
     - websecure
   routes:
-    # tinyauth is the only thing between the internet and an agent that runs as
-    # mtaku3 on helios. It also supplies the Remote-Email header the gateway's
-    # trusted-proxy auth mode verifies.
     - match: Host(`openclaw.mtaku3.com`)
       kind: Rule
-      middlewares:
-        - name: tinyauth
-          namespace: traefik
       services:
         - name: openclaw
           port: http

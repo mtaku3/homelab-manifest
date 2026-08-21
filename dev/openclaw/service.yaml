@@ -1,16 +1,3 @@
-# openclaw does not run in the cluster: the gateway is a systemd --user unit on
-# helios (192.168.10.101).
-#
-# The obvious shape for that -- a selector-less Service plus a hand-written
-# EndpointSlice -- does not survive Argo CD. Its default resource.exclusions drop
-# discovery.k8s.io/EndpointSlice, so the slice is silently absent from the desired
-# state, never applied, and the app still reports Synced/Healthy with a backend
-# that has no servers.
-#
-# ExternalName avoids the whole problem. Traefik does not resolve it through
-# CoreDNS: it uses spec.externalName verbatim as the backend host
-# (loadServers() in pkg/provider/kubernetes/crd/kubernetes_http.go), so an IP
-# literal is dialled directly. traefik's allowExternalNameServices is already on.
 apiVersion: v1
 kind: Service
 metadata:
