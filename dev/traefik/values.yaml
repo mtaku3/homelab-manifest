@@ -19,6 +19,18 @@ logs:
 service:
   type: NodePort
 
+  # Preserve the client source IP. The router DNATs to the kube-vip VIP without
+  # touching the source, so the real address reaches the node -- conntrack shows
+  # the original tuple as src=<public ip> dst=192.168.10.100 dport=443 -- and
+  # then kube-proxy SNATs it to the cni gateway under the default Cluster
+  # policy. Every request therefore reaches Traefik as 10.1.0.1, which is what
+  # tinyauth logs today and what openclaw's per-IP rate limiter would key on.
+  #
+  # Local has no availability cost here: one node, one Traefik replica, and the
+  # VIP lives on that node.
+  spec:
+    externalTrafficPolicy: Local
+
 ports:
   web:
     nodePort: 80
