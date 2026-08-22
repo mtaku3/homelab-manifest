@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: hindsight
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
   project: default
   source:
@@ -13,6 +11,12 @@ spec:
     path: dev/hindsight
     plugin:
       name: homelab-manifest-build
+  ignoreDifferences:
+    - group: apps
+      kind: StatefulSet
+      jqPathExpressions:
+        - .spec.volumeClaimTemplates[]?.apiVersion
+        - .spec.volumeClaimTemplates[]?.kind
   destination:
     server: https://kubernetes.default.svc
     namespace: hindsight
@@ -24,3 +28,4 @@ spec:
       - CreateNamespace=true
       - ServerSideApply=true
       - ForceConflicts=true
+      - RespectIgnoreDifferences=true
