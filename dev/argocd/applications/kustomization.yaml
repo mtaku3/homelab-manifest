@@ -6,7 +6,6 @@ resources:
   - hindsight.yaml
   - mfsm.yaml
   - open-webui.yaml
-  - openclaw.yaml
   - paseo.yaml
   - piraeus-datastore.yaml
   - sealed-secrets.yaml
