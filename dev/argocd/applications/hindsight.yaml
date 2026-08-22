@@ -11,6 +11,12 @@ spec:
     path: dev/hindsight
     plugin:
       name: homelab-manifest-build
+  ignoreDifferences:
+    - group: apps
+      kind: StatefulSet
+      jqPathExpressions:
+        - .spec.volumeClaimTemplates[]?.apiVersion
+        - .spec.volumeClaimTemplates[]?.kind
   destination:
     server: https://kubernetes.default.svc
     namespace: hindsight
@@ -22,3 +28,4 @@ spec:
       - CreateNamespace=true
       - ServerSideApply=true
       - ForceConflicts=true
+      - RespectIgnoreDifferences=true
