@@ -10,14 +10,12 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`hindsight.mtaku3.com`) && PathPrefix(`/v1`)
-      priority: 100
+      match: Host(`api.hindsight.mtaku3.com`)
       services:
         - name: hindsight-api
           port: 8888
     - kind: Rule
       match: Host(`hindsight.mtaku3.com`)
-      priority: 10
       services:
         - name: hindsight-control-plane
           port: 3000

@@ -10,3 +10,4 @@ spec:
     kind: ClusterIssuer
   dnsNames:
     - hindsight.mtaku3.com
+    - api.hindsight.mtaku3.com
