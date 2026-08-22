@@ -1,0 +1,18 @@
+helmCharts:
+  - repo: oci://ghcr.io/vectorize-io/charts
+    name: hindsight
+    version: "0.9.1"
+    namespace: hindsight
+    releaseName: hindsight
+    valuesFile: values.yaml
+  - repo: oci://registry-1.docker.io/cloudpirates
+    name: postgres
+    version: "0.19.0"
+    namespace: hindsight
+    releaseName: hindsight-postgres
+    valuesFile: postgres-values.yaml
+
+resources:
+  - certificate.yaml
+  - ingress-route.yaml
+  - runtime-secret.yaml

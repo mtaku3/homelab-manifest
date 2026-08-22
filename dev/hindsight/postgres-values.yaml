@@ -1,0 +1,40 @@
+fullnameOverride: hindsight-postgres
+
+image:
+  registry: ghcr.io
+  repository: mtaku3/postgres-pgroonga-pgvector
+  tag: 2391a81b2bb5f5223b9e0c209c8ac30f27394823@sha256:84f484f94320a8288580ef40e0864e1ebc8edb77468e0245d67bc0db2c7f672f
+  imagePullPolicy: IfNotPresent
+
+auth:
+  username: hindsight
+  database: hindsight
+  existingSecret: hindsight-runtime
+  secretKeys:
+    adminPasswordKey: postgres-password
+
+initdb:
+  scripts:
+    00-extensions.sql: |
+      CREATE EXTENSION IF NOT EXISTS vector CASCADE;
+      CREATE EXTENSION IF NOT EXISTS pgroonga CASCADE;
+
+persistence:
+  enabled: true
+  storageClass: piraeus-storage
+  size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+
+persistentVolumeClaimRetentionPolicy:
+  enabled: true
+  whenScaled: Retain
+  whenDeleted: Retain
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 2Gi

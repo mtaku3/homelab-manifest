@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: web-tls-cert
+  namespace: hindsight
+spec:
+  secretName: web-tls-cert
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  dnsNames:
+    - hindsight.mtaku3.com
+    - api.hindsight.mtaku3.com
