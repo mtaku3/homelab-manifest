@@ -3,8 +3,6 @@ kind: Application
 metadata:
   name: hindsight
   namespace: argocd
-  annotations:
-    argocd.argoproj.io/compare-options: ServerSideDiff=true
 spec:
   project: default
   source:
