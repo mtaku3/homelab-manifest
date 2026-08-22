@@ -14,7 +14,6 @@ helmCharts:
 
 resources:
   - certificate.yaml
-  - ghcr-pull-secret.yaml
   - ingress-route.yaml
   - runtime-secret.yaml
 

@@ -1,13 +1,9 @@
 fullnameOverride: hindsight-postgres
 
-global:
-  imagePullSecrets:
-    - ghcr-pull-secret
-
 image:
   registry: ghcr.io
-  repository: mtaku3/hindsight-postgres
-  tag: pg17-pgroonga4.0.4-pgvector0.8.0-r1
+  repository: mtaku3/postgres-pgroonga-pgvector
+  tag: 2391a81b2bb5f5223b9e0c209c8ac30f27394823@sha256:84f484f94320a8288580ef40e0864e1ebc8edb77468e0245d67bc0db2c7f672f
   imagePullPolicy: IfNotPresent
 
 auth:

@@ -31,16 +31,22 @@ database lifecycle.
 ### Combined PGroonga and pgvector image
 
 Hindsight's official PGroonga example builds pgvector on top of the PGroonga
-image. The same image is built reproducibly by this repository because the
-historically used `pgvector/pgvector:pg17` image does not include PGroonga.
-The base image digest, PGroonga version, PostgreSQL major version, and pgvector
-version are pinned.
+image. The application-independent image is built in the companion
+[`postgres-pgroonga-pgvector-image`](https://github.com/mtaku3/postgres-pgroonga-pgvector-image)
+repository because the historically used `pgvector/pgvector:pg17` image does
+not include PGroonga. It contains PostgreSQL 17, PGroonga 4.0.8, and pgvector
+0.8.6, matching Hindsight's current upstream recipe. The base image digest and
+the exact pgvector package version are pinned, and consumers use the image
+repository's complete Git commit SHA plus the published multi-platform digest.
 
-GHCR makes a newly published container package private by default, even when it
-is linked to a public repository. The database therefore uses a namespace-local
-`ghcr-pull-secret`, matching the repository's existing private-image pattern.
-This avoids making package visibility public irreversibly and avoids a manual
-post-merge visibility change.
+This is intentionally not a Hindsight-specific image. Database names, users,
+extension initialization, credentials, and Hindsight connection settings stay
+in this manifest repository. This keeps the image reusable by any PostgreSQL
+consumer that needs both extensions and follows the existing `*-image`
+repository naming convention.
+
+The GHCR package is publicly readable. Its multi-platform manifest was verified
+without Docker credentials, so the database does not need an image pull secret.
 
 ### Model cache PVC
 
