@@ -3,6 +3,7 @@ resources:
   - cert-manager.yaml
   - external-dns.yaml
   - gitlab.yaml
+  - hindsight.yaml
   - mfsm.yaml
   - open-webui.yaml
   - openclaw.yaml
