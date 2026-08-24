@@ -19,7 +19,7 @@ api:
         - ReadWriteOnce
   env:
     HINDSIGHT_API_LLM_PROVIDER: openrouter
-    HINDSIGHT_API_LLM_MODEL: qwen/qwen3.5-9b
+    HINDSIGHT_API_LLM_MODEL: openai/gpt-oss-20b:free
     HINDSIGHT_API_LLM_OUTPUT_LANGUAGE: English
     HINDSIGHT_API_EMBEDDINGS_PROVIDER: local
     HINDSIGHT_API_EMBEDDINGS_LOCAL_MODEL: BAAI/bge-m3
