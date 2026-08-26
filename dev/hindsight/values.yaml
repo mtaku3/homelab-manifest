@@ -10,6 +10,8 @@ api:
     limits:
       cpu: 4000m
       memory: 8Gi
+  livenessProbe:
+    initialDelaySeconds: 120
   persistence:
     modelCache:
       enabled: true
