@@ -1,7 +1,7 @@
 helmCharts:
   - repo: oci://ghcr.io/vectorize-io/charts
     name: hindsight
-    version: "0.9.1"
+    version: "0.9.2"
     namespace: hindsight
     releaseName: hindsight
     valuesFile: values.yaml
