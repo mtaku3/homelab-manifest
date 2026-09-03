@@ -22,7 +22,7 @@ spec:
           type: RuntimeDefault
       initContainers:
         - name: extract-web-ui
-          image: ghcr.io/getpaseo/paseo:0.4.0
+          image: ghcr.io/getpaseo/paseo:0.7.2
           imagePullPolicy: IfNotPresent
           command:
             - sh
