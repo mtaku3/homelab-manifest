@@ -1,2 +1,9 @@
 .venv
 charts
+
+# local agent and indexing state
+/.codex/
+/.codegraph/
+
+# local render test override
+/dev/victoria-metrics/_test-override.yaml
