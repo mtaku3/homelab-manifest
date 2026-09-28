@@ -61,21 +61,21 @@ spec:
               memory: "6Gi"
           startupProbe:
             httpGet:
-              path: /docs
+              path: /api/v1/auth/status
               port: http
             periodSeconds: 5
             timeoutSeconds: 3
             failureThreshold: 60
           readinessProbe:
             httpGet:
-              path: /docs
+              path: /api/v1/auth/status
               port: http
             periodSeconds: 10
             timeoutSeconds: 3
             failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: /docs
+              path: /api/v1/auth/status
               port: http
             periodSeconds: 30
             timeoutSeconds: 5
