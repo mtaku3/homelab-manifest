@@ -11,11 +11,15 @@ spec:
   routes:
     - match: >-
         Host(`cliproxy.mtaku3.com`) && (
-        PathPrefix(`/v1/`) ||
-        PathPrefix(`/v1beta/`) ||
-        PathPrefix(`/openai/v1/`) ||
-        PathPrefix(`/backend-api/codex/`)) &&
-        !PathPrefix(`/v1/ws`)
+        Path(`/v1/models`) ||
+        Path(`/v1/chat/completions`) ||
+        Path(`/v1/completions`) ||
+        Path(`/v1/messages`) ||
+        Path(`/v1/messages/count_tokens`) ||
+        Path(`/v1/responses`) ||
+        Path(`/v1/responses/compact`) ||
+        Path(`/v1beta/models`) ||
+        PathPrefix(`/v1beta/models/`))
       kind: Rule
       priority: 100
       services:
