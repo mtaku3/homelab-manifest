@@ -11,21 +11,21 @@ spec:
   routes:
     - match: >-
         Host(`cliproxy.mtaku3.com`) && (
-        Path(`/management.html`) ||
-        PathPrefix(`/v0/management`) ||
-        PathPrefix(`/v8/management`) ||
-        PathPrefix(`/v0/resource/plugins`))
+        PathPrefix(`/v1/`) ||
+        PathPrefix(`/v1beta/`) ||
+        PathPrefix(`/openai/v1/`) ||
+        PathPrefix(`/backend-api/codex/`))
       kind: Rule
       priority: 100
-      middlewares:
-        - name: tinyauth
-          namespace: traefik
       services:
         - name: cli-proxy-api
           port: http
     - match: Host(`cliproxy.mtaku3.com`)
       kind: Rule
       priority: 10
+      middlewares:
+        - name: tinyauth
+          namespace: traefik
       services:
         - name: cli-proxy-api
           port: http
