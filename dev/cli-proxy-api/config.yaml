@@ -15,6 +15,9 @@ data:
       disable-control-panel: false
     oauth:
       auth-dir: /data/auths
+      providers:
+        aistudio:
+          ws-auth: true
     observability:
       logs:
         logging-to-file: false
