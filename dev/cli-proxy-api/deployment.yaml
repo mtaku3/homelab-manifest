@@ -38,11 +38,7 @@ spec:
               if [ -f /data/config.yaml ]; then
                 src="/data/config.yaml /seed/config.yaml"
               fi
-              yq eval-all '
-                . as $item ireduce ({}; . * $item)
-                | .access.api-keys = ((.access.api-keys // []) | map(select(. != null and . != "")))
-                | (select((.access.api-keys | length) == 0) | .access.api-keys) = ["your-api-key-1"]
-              ' $src > /data/config.yaml.tmp
+              yq eval-all '. as $item ireduce ({}; . * $item)' $src > /data/config.yaml.tmp
               mv /data/config.yaml.tmp /data/config.yaml
           securityContext:
             allowPrivilegeEscalation: false
@@ -64,7 +60,7 @@ spec:
               readOnly: true
       containers:
         - name: cli-proxy-api
-          image: eceasy/cli-proxy-api:v8.0.3
+          image: ghcr.io/mtaku3/cli-proxy-api:v8.0.3-6fa9b170
           imagePullPolicy: IfNotPresent
           command:
             - /CLIProxyAPI/CLIProxyAPI
@@ -81,6 +77,8 @@ spec:
               value: Asia/Tokyo
             - name: WRITABLE_PATH
               value: /data
+            - name: REQUIRE_API_KEY
+              value: "true"
             - name: MANAGEMENT_PASSWORD
               valueFrom:
                 secretKeyRef:
