@@ -1,0 +1,25 @@
+# Non-secret settings. The init container merges this over the config on the PVC,
+# so keys set here win on every restart while UI-managed keys (access.api-keys,
+# anything not listed here) are preserved.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cli-proxy-api-config
+  namespace: cli-proxy-api
+data:
+  config.yaml: |
+    config-version: 8
+    server:
+      port: 8317
+      # Pod CIDR; lets the management IP ban see real client IPs behind Traefik.
+      trusted-proxies:
+        - 10.1.0.0/16
+    management:
+      # The key comes from MANAGEMENT_PASSWORD, which also forces remote access on.
+      allow-remote: true
+      disable-control-panel: false
+    oauth:
+      auth-dir: /data/auths
+    observability:
+      logs:
+        logging-to-file: false
