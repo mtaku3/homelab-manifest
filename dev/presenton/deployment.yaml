@@ -43,8 +43,6 @@ spec:
                   key: CUSTOM_LLM_API_KEY
             - name: LLM_REASONING_EFFORT
               value: high
-            - name: CAN_CHANGE_KEYS
-              value: "false"
             - name: DISABLE_IMAGE_GENERATION
               value: "true"
             - name: MEM0_ENABLED
