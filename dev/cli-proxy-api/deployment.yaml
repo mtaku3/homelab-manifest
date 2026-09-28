@@ -26,8 +26,6 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       initContainers:
-        # CLIProxyAPI rewrites its config at runtime (management UI), so it has to
-        # live on the PVC. Merge the Git-managed settings over it on every start.
         - name: render-config
           image: mikefarah/yq:4.53.6
           imagePullPolicy: IfNotPresent
@@ -40,8 +38,6 @@ spec:
               if [ -f /data/config.yaml ]; then
                 src="/data/config.yaml /seed/config.yaml"
               fi
-              # Empty api-keys disables client auth entirely. Seed a template key so
-              # safe mode blocks the proxy API until real keys are set in the UI.
               yq eval-all '
                 . as $item ireduce ({}; . * $item)
                 | .access.api-keys = ((.access.api-keys // []) | map(select(. != null and . != "")))
@@ -83,7 +79,6 @@ spec:
               value: /tmp
             - name: TZ
               value: Asia/Tokyo
-            # Management panel asset and logs go under the PVC.
             - name: WRITABLE_PATH
               value: /data
             - name: MANAGEMENT_PASSWORD

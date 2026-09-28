@@ -9,7 +9,6 @@ spec:
   entryPoints:
     - websecure
   routes:
-    # Management panel and API: tinyauth in front of the management key.
     - match: >-
         Host(`cliproxy.mtaku3.com`) && (
         Path(`/management.html`) ||
@@ -24,7 +23,6 @@ spec:
       services:
         - name: cli-proxy-api
           port: http
-    # Proxy API: clients authenticate with access.api-keys.
     - match: Host(`cliproxy.mtaku3.com`)
       kind: Rule
       priority: 10
