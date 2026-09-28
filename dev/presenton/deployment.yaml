@@ -1,0 +1,89 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: presenton
+  namespace: presenton
+  labels:
+    app: presenton
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: presenton
+  template:
+    metadata:
+      labels:
+        app: presenton
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: presenton
+          image: ghcr.io/presenton/presenton:v0.9.11-beta
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+          env:
+            - name: TZ
+              value: Asia/Tokyo
+            - name: LLM
+              value: custom
+            - name: CUSTOM_LLM_URL
+              value: http://cli-proxy-api.cli-proxy-api.svc.cluster.local/v1
+            - name: CUSTOM_MODEL
+              value: gpt-6-sol
+            - name: CUSTOM_LLM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: presenton-llm
+                  key: CUSTOM_LLM_API_KEY
+            - name: LLM_REASONING_EFFORT
+              value: high
+            - name: CAN_CHANGE_KEYS
+              value: "false"
+            - name: DISABLE_IMAGE_GENERATION
+              value: "true"
+            - name: MEM0_ENABLED
+              value: "false"
+            - name: DISABLE_ANONYMOUS_TRACKING
+              value: "true"
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "1Gi"
+            limits:
+              memory: "6Gi"
+          startupProbe:
+            httpGet:
+              path: /docs
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /docs
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /docs
+              port: http
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          volumeMounts:
+            - name: data
+              mountPath: /app_data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: presenton-data

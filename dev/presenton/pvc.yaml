@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: presenton-data
+  namespace: presenton
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: piraeus-storage
+  resources:
+    requests:
+      storage: 10Gi

@@ -9,6 +9,7 @@ resources:
   - open-webui.yaml
   - paseo.yaml
   - piraeus-datastore.yaml
+  - presenton.yaml
   - sealed-secrets.yaml
   - traefik.yaml
   - victoria-metrics.yaml

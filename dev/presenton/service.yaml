@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: presenton
+  namespace: presenton
+spec:
+  selector:
+    app: presenton
+  ports:
+    - name: http
+      port: 80
+      targetPort: http

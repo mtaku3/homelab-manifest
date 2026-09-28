@@ -1,0 +1,7 @@
+resources:
+  - llm-secret.yaml
+  - pvc.yaml
+  - deployment.yaml
+  - service.yaml
+  - certificate.yaml
+  - ingress-route.yaml
