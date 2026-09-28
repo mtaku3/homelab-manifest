@@ -16,6 +16,7 @@ dev/
   open-webui/         # LLM chat UI
   paseo/              # Web client and public relay for local Paseo daemons
   piraeus-datastore/  # LINSTOR-backed storage
+  presenton/          # AI presentation generator backed by CLIProxyAPI
   sealed-secrets/     # Encrypted secrets at rest in git
   traefik/            # Ingress + tinyauth
   victoria-metrics/   # Metrics stack
