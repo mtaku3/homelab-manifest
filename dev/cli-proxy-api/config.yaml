@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cli-proxy-api-config
+  namespace: cli-proxy-api
+data:
+  config.yaml: |
+    config-version: 8
+    server:
+      port: 8317
+      trusted-proxies:
+        - 10.1.0.0/16
+    management:
+      allow-remote: true
+      disable-control-panel: false
+    oauth:
+      auth-dir: /data/auths
+      providers:
+        aistudio:
+          ws-auth: true
+    observability:
+      logs:
+        logging-to-file: false

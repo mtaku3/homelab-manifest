@@ -1,6 +1,7 @@
 resources:
   - argocd.yaml
   - cert-manager.yaml
+  - cli-proxy-api.yaml
   - external-dns.yaml
   - gitlab.yaml
   - hindsight.yaml

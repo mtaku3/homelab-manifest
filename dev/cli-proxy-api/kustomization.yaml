@@ -1,0 +1,8 @@
+resources:
+  - config.yaml
+  - management-secret.yaml
+  - pvc.yaml
+  - deployment.yaml
+  - service.yaml
+  - certificate.yaml
+  - ingress-route.yaml
