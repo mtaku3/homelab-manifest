@@ -4,6 +4,8 @@ metadata:
   name: openscience
   namespace: openscience
 spec:
+  type: ExternalName
+  externalName: 192.168.10.101
   ports:
     - name: http
       port: 4097
