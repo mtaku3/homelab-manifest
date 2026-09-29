@@ -9,9 +9,6 @@ spec:
   entryPoints:
     - websecure
   routes:
-    # tinyauth is the only user-facing gate in front of an agent that runs as
-    # mtaku3 on helios. nginx there rewrites Host to loopback and adds the
-    # runtime's bearer token, so the token never has to appear in this repo.
     - match: Host(`openscience.mtaku3.com`)
       kind: Rule
       middlewares:
