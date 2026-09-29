@@ -1,0 +1,5 @@
+resources:
+  - service.yaml
+  - endpointslice.yaml
+  - certificate.yaml
+  - ingress-route.yaml

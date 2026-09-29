@@ -1,0 +1,24 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web
+  namespace: openscience
+  annotations:
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    # tinyauth is the only user-facing gate in front of an agent that runs as
+    # mtaku3 on helios. nginx there rewrites Host to loopback and adds the
+    # runtime's bearer token, so the token never has to appear in this repo.
+    - match: Host(`openscience.mtaku3.com`)
+      kind: Rule
+      middlewares:
+        - name: tinyauth
+          namespace: traefik
+      services:
+        - name: openscience
+          port: http
+  tls:
+    secretName: web-tls-cert

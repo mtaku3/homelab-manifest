@@ -1,0 +1,17 @@
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: openscience
+  namespace: openscience
+  labels:
+    kubernetes.io/service-name: openscience
+addressType: IPv4
+ports:
+  - name: http
+    port: 4097
+    protocol: TCP
+endpoints:
+  - addresses:
+      - 192.168.10.101
+    conditions:
+      ready: true

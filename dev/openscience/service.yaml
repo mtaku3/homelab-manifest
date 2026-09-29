@@ -1,0 +1,14 @@
+# OpenScience does not run in the cluster: its runtime is a systemd --user unit
+# on helios (192.168.10.101), so the agent's shell, kernels and files live on
+# that host. A selector-less Service plus the hand-written EndpointSlice beside
+# it lets Traefik route to helios' nginx as if it were a pod.
+apiVersion: v1
+kind: Service
+metadata:
+  name: openscience
+  namespace: openscience
+spec:
+  ports:
+    - name: http
+      port: 4097
+      protocol: TCP
