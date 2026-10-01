@@ -1,0 +1,8 @@
+resources:
+  - service.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+  - relay-certificate.yaml
+  - relay-deployment.yaml
+  - relay-ingress-route.yaml
+  - relay-service.yaml
