@@ -1,0 +1,20 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: relay
+  namespace: openchamber
+  annotations:
+    external-dns.alpha.kubernetes.io/target: 202.215.58.76
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    # No tinyauth: hosts and paired devices dial in with their own keys and
+    # the traffic is end-to-end encrypted between them.
+    - match: Host(`relay.openchamber.mtaku3.com`) && (PathPrefix(`/ws`) || Path(`/health`))
+      kind: Rule
+      services:
+        - name: openchamber-relay
+          port: http
+  tls:
+    secretName: relay-tls-cert
