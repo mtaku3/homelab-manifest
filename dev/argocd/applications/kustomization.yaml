@@ -7,9 +7,6 @@ resources:
   - hindsight.yaml
   - mfsm.yaml
   - open-webui.yaml
-  - openchamber.yaml
-  - openscience.yaml
-  - paseo.yaml
   - piraeus-datastore.yaml
   - presenton.yaml
   - sealed-secrets.yaml
