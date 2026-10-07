@@ -1,4 +1,0 @@
-resources:
-  - service.yaml
-  - certificate.yaml
-  - ingress-route.yaml

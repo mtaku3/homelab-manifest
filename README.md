@@ -14,8 +14,6 @@ dev/
   hindsight/          # Self-hosted long-term memory for coding agents
   mt4jm/              # Personal app
   open-webui/         # LLM chat UI
-  openchamber/        # Proxy to the OpenChamber server on helios + self-hosted relay
-  paseo/              # Web client and public relay for local Paseo daemons
   piraeus-datastore/  # LINSTOR-backed storage
   presenton/          # AI presentation generator backed by CLIProxyAPI
   sealed-secrets/     # Encrypted secrets at rest in git
