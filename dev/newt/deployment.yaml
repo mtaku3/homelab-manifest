@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: newt
+  namespace: newt
+  labels:
+    app: newt
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: newt
+  template:
+    metadata:
+      labels:
+        app: newt
+    spec:
+      # Reach edge1 directly in the DMZ: the RTX1210 has no hairpin NAT, so the
+      # public address of pangolin.mtaku3.com is not usable from inside the LAN.
+      hostAliases:
+        - ip: 192.168.30.10
+          hostnames:
+            - pangolin.mtaku3.com
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+        runAsGroup: 65532
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: newt
+          image: docker.io/fosrl/newt:1.12.5
+          # PANGOLIN_ENDPOINT, NEWT_ID, NEWT_SECRET
+          envFrom:
+            - secretRef:
+                name: newt
+          env:
+            # Newt persists its client config under $HOME.
+            - name: HOME
+              value: /tmp
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              memory: 256Mi
+      volumes:
+        - name: tmp
+          emptyDir: {}
