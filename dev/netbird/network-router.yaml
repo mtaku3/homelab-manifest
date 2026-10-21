@@ -1,0 +1,17 @@
+# Routing peer for the cluster. Resources (the Service CIDR, Services
+# published through the NetBird reverse proxy) are added to its network
+# from the NetBird dashboard, not via NetworkResource objects.
+apiVersion: netbird.io/v1alpha1
+kind: NetworkRouter
+metadata:
+  name: k8s
+  annotations:
+    # The CRD ships in the same sync.
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  namespace: netbird
+spec:
+  # Required by the operator; stays empty since records are not managed here.
+  dnsZoneRef:
+    name: router.k8s.mtaku3.com
+  workloadOverride:
+    replicas: 1

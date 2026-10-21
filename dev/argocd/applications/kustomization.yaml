@@ -6,7 +6,7 @@ resources:
   - gitlab.yaml
   - hindsight.yaml
   - mfsm.yaml
-  - newt.yaml
+  - netbird.yaml
   - open-webui.yaml
   - piraeus-datastore.yaml
   - presenton.yaml
