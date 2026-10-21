@@ -10,8 +10,6 @@ helmCharts:
 resources:
   - applications/
   - google-sso-secret.yaml
-  - certificate.yaml
-  - ingress-route.yaml
   - repo-homelab-manifest.yaml
   - repo-mt4jm.yaml
   - repo-mfsm.yaml

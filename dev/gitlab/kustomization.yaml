@@ -7,8 +7,6 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
-  - certificate.yaml
-  - ingress-route.yaml
 
 # webservice and gitlab-shell are pinned to minReplicas==maxReplicas==1, but the
 # gitlab chart still emits an HPA for every enabled component (no disable toggle;

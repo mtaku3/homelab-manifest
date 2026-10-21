@@ -13,6 +13,4 @@ helmCharts:
     valuesFile: postgres-values.yaml
 
 resources:
-  - certificate.yaml
-  - ingress-route.yaml
   - runtime-secret.yaml

@@ -6,7 +6,3 @@ helmCharts:
     namespace: cert-manager
     releaseName: cert-manager
     valuesFile: values.yaml
-
-resources:
-  - secret.yaml
-  - cluster-issuer.yaml
