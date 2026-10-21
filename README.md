@@ -7,17 +7,16 @@ GitOps manifests for my personal Kubernetes homelab. Argo CD is the root of trus
 ```
 dev/
   argocd/             # Argo CD itself + Application definitions for the rest
-  cert-manager/       # TLS via Let's Encrypt
+  cert-manager/       # In-cluster certificates (operator webhooks)
   cli-proxy-api/      # OpenAI/Claude/Gemini-compatible proxy over CLI subscriptions
-  external-dns/       # DNS record sync
   gitlab/             # Self-hosted GitLab
   hindsight/          # Self-hosted long-term memory for coding agents
   mt4jm/              # Personal app
+  netbird/            # NetBird operator: cluster access and published Services
   open-webui/         # LLM chat UI
   piraeus-datastore/  # LINSTOR-backed storage
   presenton/          # AI presentation generator backed by CLIProxyAPI
   sealed-secrets/     # Encrypted secrets at rest in git
-  traefik/            # Ingress + tinyauth
   victoria-metrics/   # Metrics stack
 scripts/
   build.sh            # kustomize build with helm + namespace defaulting

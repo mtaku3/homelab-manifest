@@ -2,7 +2,6 @@ resources:
   - argocd.yaml
   - cert-manager.yaml
   - cli-proxy-api.yaml
-  - external-dns.yaml
   - gitlab.yaml
   - hindsight.yaml
   - mfsm.yaml
@@ -11,5 +10,4 @@ resources:
   - piraeus-datastore.yaml
   - presenton.yaml
   - sealed-secrets.yaml
-  - traefik.yaml
   - victoria-metrics.yaml
