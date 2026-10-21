@@ -14,7 +14,7 @@ spec:
   jobName: kube-scheduler
   targetEndpoints:
     - targets:
-        - "192.168.10.102:10251"
+        - "192.168.11.102:10251"
       scheme: https
       bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
       tlsConfig:
@@ -29,7 +29,7 @@ spec:
   jobName: kube-controller-manager
   targetEndpoints:
     - targets:
-        - "192.168.10.102:10252"
+        - "192.168.11.102:10252"
       scheme: https
       bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
       tlsConfig:
@@ -44,7 +44,7 @@ spec:
   jobName: kube-etcd
   targetEndpoints:
     - targets:
-        - "192.168.10.102:2379"
+        - "192.168.11.102:2379"
       scheme: https
       tlsConfig:
         # etcd's CA cert is not deployed to the node as a file, so we cannot
