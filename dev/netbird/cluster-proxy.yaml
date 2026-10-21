@@ -1,0 +1,60 @@
+# kubectl over NetBird: the proxy impersonates the caller's NetBird user and
+# groups, so cluster access is granted by NetBird group membership.
+apiVersion: netbird.io/v1alpha1
+kind: ClusterProxy
+metadata:
+  name: homelab
+  annotations:
+    # The CRD ships in the same sync.
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  namespace: netbird
+spec:
+  clusterName: homelab
+  serviceAccountName: clusterproxy-homelab
+  groups:
+    - name: k8s-api
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: clusterproxy-homelab
+  namespace: netbird
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: netbird-clusterproxy-impersonator
+rules:
+  - apiGroups: [""]
+    resources: ["users", "groups"]
+    verbs: ["impersonate"]
+  - apiGroups: ["authentication.k8s.io"]
+    resources: ["userextras/*", "uids"]
+    verbs: ["impersonate"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: netbird-clusterproxy-impersonator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: netbird-clusterproxy-impersonator
+subjects:
+  - kind: ServiceAccount
+    name: clusterproxy-homelab
+    namespace: netbird
+---
+# Members of the NetBird group "admins" are cluster admins.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: netbird-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: Group
+    name: admins
+    apiGroup: rbac.authorization.k8s.io

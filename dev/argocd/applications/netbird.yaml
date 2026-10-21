@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: netbird
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mtaku3/homelab-manifest.git
+    targetRevision: HEAD
+    path: dev/netbird
+    plugin:
+      name: homelab-manifest-build
+  # Without cert-manager the chart mints a new webhook certificate on every
+  # render; keep the pair from the first sync.
+  ignoreDifferences:
+    - kind: Secret
+      name: netbird-operator-tls
+      jsonPointers:
+        - /data
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks[]?.clientConfig.caBundle
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - .webhooks[]?.clientConfig.caBundle
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: netbird
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - ForceConflicts=true
+      - RespectIgnoreDifferences=true

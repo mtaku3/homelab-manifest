@@ -1,0 +1,10 @@
+managementURL: https://netbird.mtaku3.com
+cluster:
+  name: homelab
+# cert-manager is being retired; the chart then generates the webhook
+# certificate itself (its churn is ignored in the Argo CD Application).
+webhook:
+  enableCertManager: false
+# Only the API key secret in this namespace is needed.
+clusterSecretsPermissions:
+  allowAllSecrets: false
