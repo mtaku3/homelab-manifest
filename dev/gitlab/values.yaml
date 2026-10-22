@@ -15,9 +15,13 @@ global:
   minio:
     replicas: 1
 gitlab-runner:
+  # gitlab.mtaku3.com is a NetBird private service, which pods (not NetBird
+  # peers) are refused by, so the runner talks to GitLab in-cluster.
+  gitlabUrl: http://gitlab-webservice-default.gitlab.svc:8181
   runners:
     config: |
       [[runners]]
+        clone_url = "http://gitlab-webservice-default.gitlab.svc:8181"
         [runners.kubernetes]
           image = "ubuntu:22.04"
           privileged = true
@@ -31,10 +35,10 @@ gitlab-runner:
           Path = "gitlab-runner"
           Shared = true
           [runners.cache.s3]
-            ServerAddress = {{ include "gitlab-runner.cache-tpl.s3ServerAddress" . }}
+            ServerAddress = "gitlab-minio-svc.gitlab.svc:9000"
             BucketName = "runner-cache"
             BucketLocation = "us-east-1"
-            Insecure = false
+            Insecure = true
         {{ end }}
 
 gitlab:
