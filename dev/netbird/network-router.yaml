@@ -14,4 +14,7 @@ spec:
   dnsZoneRef:
     name: router.k8s.mtaku3.com
   workloadOverride:
-    replicas: 1
+    # Two routing peers so a restart never leaves the reverse proxy without
+    # one: with a single router, the proxy kept no usable peer for domain
+    # resources ("no current peer key") until it was restarted itself.
+    replicas: 2
