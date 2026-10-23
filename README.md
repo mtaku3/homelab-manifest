@@ -13,7 +13,6 @@ dev/
   hindsight/          # Self-hosted long-term memory for coding agents
   mt4jm/              # Personal app
   netbird/            # NetBird operator: cluster access and published Services
-  open-webui/         # LLM chat UI
   piraeus-datastore/  # LINSTOR-backed storage
   presenton/          # AI presentation generator backed by CLIProxyAPI
   sealed-secrets/     # Encrypted secrets at rest in git
