@@ -4,6 +4,7 @@ resources:
   - cli-proxy-api.yaml
   - gitlab.yaml
   - hindsight.yaml
+  - metrics-server.yaml
   - mfsm.yaml
   - netbird.yaml
   - piraeus-datastore.yaml
