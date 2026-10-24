@@ -1,4 +1,8 @@
 grafana:
+  # The subchart ships 13.2.3; 13.2.4 fixes CVE-2026-33374. Drop this once the
+  # chart's appVersion catches up.
+  image:
+    tag: 13.2.4-distroless
   envValueFrom:
     GF_AUTH_GOOGLE_CLIENT_ID:
       secretKeyRef:
@@ -20,16 +24,47 @@ grafana:
       token_url: https://accounts.google.com/o/oauth2/token
       allowed_domains: mtaku3.com
       allow_sign_up: true
+    date_formats:
+      default_timezone: Asia/Tokyo
   persistence:
     enabled: true
     type: statefulset
     size: 2Gi
+  # The sidecars call Grafana's reload API as admin, but the chart regenerates
+  # the admin-password Secret on every render while Grafana keeps the one it
+  # was first started with, so every reload gets 401 (and trips the login
+  # lockout). Dashboards don't need it (the file provider polls); datasources
+  # are written by an init container before Grafana starts instead.
+  sidecar:
+    dashboards:
+      skipReload: true
+    datasources:
+      initDatasources: true
+      skipReload: true
 
-defaultDashboard:
-  defaultTimezone: Asia/Tokyo
+# Links to Grafana in alerts and vmalert's external URL. Without a scheme the
+# chart prefixes http://.
+external:
+  grafana:
+    host: https://grafana.mtaku3.com
+
+# v1.154.x can OOM vmsingle on long-range /api/v1/series and label queries,
+# which Grafana's variable queries issue (VictoriaMetrics#11791). Upstream
+# recommends v1.153.0 until v1.155.0; drop these pins once the chart ships it.
+vmagent:
+  spec:
+    image:
+      tag: v1.153.0
+
+vmalert:
+  spec:
+    image:
+      tag: v1.153.0
 
 vmsingle:
   spec:
+    image:
+      tag: v1.153.0
     retentionPeriod: "14d"
     extraArgs:
       dedup.minScrapeInterval: "60s"
