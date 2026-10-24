@@ -41,6 +41,9 @@ grafana:
     datasources:
       initDatasources: true
       skipReload: true
+      # The init container uses watchMethod too; WATCH never exits and blocks
+      # Grafana from starting. LIST writes the files once and exits.
+      watchMethod: LIST
 
 # Links to Grafana in alerts and vmalert's external URL. Without a scheme the
 # chart prefixes http://.
