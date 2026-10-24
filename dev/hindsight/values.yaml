@@ -10,8 +10,11 @@ api:
     limits:
       cpu: 4000m
       memory: 8Gi
+  # Startup loads the local embedding and reranker models (~70s) and runs
+  # pending DB migrations before the server listens, and the chart has no
+  # startupProbe; leave room so an upgrade's migrations aren't killed midway.
   livenessProbe:
-    initialDelaySeconds: 120
+    initialDelaySeconds: 300
   persistence:
     modelCache:
       enabled: true
