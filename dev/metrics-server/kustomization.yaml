@@ -1,0 +1,8 @@
+# Serves metrics.k8s.io (HPA, kubectl top). The cluster is built from nixpkgs'
+# services.kubernetes, which doesn't ship it as an addon.
+helmCharts:
+  - repo: https://kubernetes-sigs.github.io/metrics-server/
+    name: metrics-server
+    version: "3.14.0"
+    namespace: kube-system
+    releaseName: metrics-server

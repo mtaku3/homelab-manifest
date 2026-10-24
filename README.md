@@ -11,6 +11,7 @@ dev/
   cli-proxy-api/      # OpenAI/Claude/Gemini-compatible proxy over CLI subscriptions
   gitlab/             # Self-hosted GitLab
   hindsight/          # Self-hosted long-term memory for coding agents
+  metrics-server/     # metrics.k8s.io for HPA and kubectl top
   mt4jm/              # Personal app
   netbird/            # NetBird operator: cluster access and published Services
   piraeus-datastore/  # LINSTOR-backed storage
