@@ -9,37 +9,19 @@ global:
   hpa:
     apiVersion: autoscaling/v2
 
+  # Unused. KAS is toggled here; gitlab.kas.enabled has no effect.
+  kas:
+    enabled: false
+
   pdb:
     apiVersion: policy/v1
 
   minio:
     replicas: 1
+
+# This instance is kept as a read-only archive; nothing pushes to it or runs CI.
 gitlab-runner:
-  # gitlab.mtaku3.com is a NetBird private service, which pods (not NetBird
-  # peers) are refused by, so the runner talks to GitLab in-cluster.
-  gitlabUrl: http://gitlab-webservice-default.gitlab.svc:8181
-  runners:
-    config: |
-      [[runners]]
-        clone_url = "http://gitlab-webservice-default.gitlab.svc:8181"
-        [runners.kubernetes]
-          image = "ubuntu:22.04"
-          privileged = true
-        [[runners.kubernetes.volumes.empty_dir]]
-          name = "docker-certs"
-          mount_path = "/certs/client"
-          medium = "Memory"
-        {{- if .Values.global.minio.enabled }}
-        [runners.cache]
-          Type = "s3"
-          Path = "gitlab-runner"
-          Shared = true
-          [runners.cache.s3]
-            ServerAddress = "gitlab-minio-svc.gitlab.svc:9000"
-            BucketName = "runner-cache"
-            BucketLocation = "us-east-1"
-            Insecure = true
-        {{ end }}
+  install: false
 
 gitlab:
   webservice:
@@ -55,11 +37,6 @@ gitlab:
         cpu: 100m
         memory: 1G
   gitlab-shell:
-    minReplicas: 1
-    maxReplicas: 1
-  kas:
-    enabled: false
-  registry:
     minReplicas: 1
     maxReplicas: 1
   gitlab-exporter:
