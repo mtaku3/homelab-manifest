@@ -44,6 +44,19 @@ grafana:
       # The init container uses watchMethod too; WATCH never exits and blocks
       # Grafana from starting. LIST writes the files once and exits.
       watchMethod: LIST
+  # Since 0.85 the stack provisions its datasources with fixed UIDs. Grafana
+  # finds the existing ones by name and then fails to update them to the new
+  # UID ("data source not found"), which aborts startup. Delete them first so
+  # they are recreated; Grafana reads provisioning files in name order, so this
+  # one runs before the sidecar's datasource.yaml.
+  datasources:
+    00-recreate-datasources.yaml:
+      apiVersion: 1
+      deleteDatasources:
+        - name: VictoriaMetrics
+          orgId: 1
+        - name: Alertmanager
+          orgId: 1
 
 # Links to Grafana in alerts and vmalert's external URL. Without a scheme the
 # chart prefixes http://.
