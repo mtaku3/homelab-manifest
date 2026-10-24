@@ -18,3 +18,16 @@ spec:
     # one: with a single router, the proxy kept no usable peer for domain
     # resources ("no current peer key") until it was restarted itself.
     replicas: 2
+    podTemplate:
+      spec:
+        containers:
+          - name: netbird
+            env:
+              # Since 0.74 `netbird up` hands the setup key to the daemon
+              # through SetConfig, which this flag rejects, so the peer never
+              # logs in. Operator 0.8.0 still sets it; main dropped it
+              # (netbirdio/kubernetes-operator#376). Remove this once a release
+              # includes that. Overriding an existing entry keeps the env order,
+              # which avoids the merge bug in netbirdio/kubernetes-operator#398.
+              - name: NB_DISABLE_UPDATE_SETTINGS
+                value: "false"
