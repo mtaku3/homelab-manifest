@@ -26,11 +26,11 @@ gitlab-runner:
 gitlab:
   webservice:
     minReplicas: 1
-    maxReplicas: 1
+    maxReplicas: 2
     workerProcesses: 1
   sidekiq:
     minReplicas: 1
-    maxReplicas: 1
+    maxReplicas: 2
     concurrency: 5
     resources:
       requests:
@@ -38,11 +38,17 @@ gitlab:
         memory: 1G
   gitlab-shell:
     minReplicas: 1
-    maxReplicas: 1
+    maxReplicas: 2
   gitlab-exporter:
     enabled: false
   mailroom:
     enabled: false
+
+# Top-level subchart, so its HPA bounds live here rather than under gitlab:.
+registry:
+  hpa:
+    minReplicas: 1
+    maxReplicas: 2
 
 prometheus:
   install: false
