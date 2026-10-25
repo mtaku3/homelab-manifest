@@ -8,7 +8,7 @@
       "customType": "regex",
       "managerFilePatterns": ["/.*y[a]?ml$/"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) version=(?<currentValue>\\S+)"
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+- https://\\S+/releases/download/(?<currentValue>[^/\\s]+)/"
       ],
       "datasourceTemplate": "{{datasource}}",
       "depNameTemplate": "{{depName}}",
