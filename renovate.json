@@ -29,6 +29,13 @@
     {
       "matchPackageNames": ["loxilb-io/loxilb"],
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:\\.(?<build>\\d+))?$"
+    },
+    {
+      "description": "GitLab is an archive until its repositories move elsewhere. Chart 10 (GitLab 19) drops the bundled PostgreSQL, Redis and MinIO it runs on, so stay on 9.x and keep taking its patch releases.",
+      "matchManagers": ["kustomize"],
+      "matchDepNames": ["gitlab"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
     }
   ]
 }
