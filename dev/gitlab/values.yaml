@@ -29,8 +29,12 @@ gitlab:
     maxReplicas: 2
     workerProcesses: 1
   sidekiq:
+    # Pinned to one. Idle sidekiq already sits near the HPA's 350m target
+    # (cron poller, metrics samplers), so it flapped 1<->2 and tripped
+    # KubeHpaMaxedOut; a second pod only adds its own overhead and a Rails
+    # boot. With min == max the alert skips this HPA.
     minReplicas: 1
-    maxReplicas: 2
+    maxReplicas: 1
     concurrency: 5
     resources:
       requests:
