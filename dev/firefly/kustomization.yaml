@@ -2,13 +2,13 @@ helmCharts:
   - repo: https://firefly-iii.github.io/kubernetes/
     name: firefly-iii
     version: "1.10.2"
-    namespace: firefly-iii
+    namespace: firefly
     releaseName: firefly-iii
     valuesFile: values.yaml
   - repo: oci://registry-1.docker.io/cloudpirates
     name: postgres
     version: "0.21.2"
-    namespace: firefly-iii
+    namespace: firefly
     releaseName: firefly-iii-postgres
     valuesFile: postgres-values.yaml
 
