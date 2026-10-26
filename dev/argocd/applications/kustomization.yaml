@@ -2,6 +2,7 @@ resources:
   - argocd.yaml
   - cert-manager.yaml
   - cli-proxy-api.yaml
+  - firefly-iii.yaml
   - gitlab.yaml
   - hindsight.yaml
   - metrics-server.yaml

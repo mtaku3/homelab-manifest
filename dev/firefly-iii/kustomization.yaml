@@ -1,0 +1,28 @@
+helmCharts:
+  - repo: https://firefly-iii.github.io/kubernetes/
+    name: firefly-iii
+    version: "1.10.2"
+    namespace: firefly-iii
+    releaseName: firefly-iii
+    valuesFile: values.yaml
+  - repo: oci://registry-1.docker.io/cloudpirates
+    name: postgres
+    version: "0.21.2"
+    namespace: firefly-iii
+    releaseName: firefly-iii-postgres
+    valuesFile: postgres-values.yaml
+
+resources:
+  - app-key-secret.yaml
+  - runtime-secret.yaml
+
+patches:
+  # The chart generates APP_KEY with `lookup`, which Argo CD cannot run, so
+  # it would rotate on every render and break sessions. The SealedSecret in
+  # app-key-secret.yaml provides a Secret of the same name instead.
+  - patch: |-
+      $patch: delete
+      apiVersion: v1
+      kind: Secret
+      metadata:
+        name: firefly-iii-app-key

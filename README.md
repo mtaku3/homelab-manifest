@@ -9,6 +9,7 @@ dev/
   argocd/             # Argo CD itself + Application definitions for the rest
   cert-manager/       # In-cluster certificates (operator webhooks)
   cli-proxy-api/      # OpenAI/Claude/Gemini-compatible proxy over CLI subscriptions
+  firefly-iii/        # Personal finance ledger (Firefly III)
   gitlab/             # Self-hosted GitLab (read-only archive)
   hindsight/          # Self-hosted long-term memory for coding agents
   metrics-server/     # metrics.k8s.io for HPA and kubectl top
