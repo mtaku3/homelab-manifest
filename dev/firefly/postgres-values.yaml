@@ -1,0 +1,29 @@
+fullnameOverride: firefly-iii-postgres
+
+auth:
+  username: firefly
+  database: firefly
+  existingSecret: firefly-iii-runtime
+  secretKeys:
+    # The firefly user is the superuser, so Firefly III and Postgres share it.
+    adminPasswordKey: DB_PASSWORD
+
+persistence:
+  enabled: true
+  storageClass: piraeus-storage
+  size: 5Gi
+  accessModes:
+    - ReadWriteOnce
+
+persistentVolumeClaimRetentionPolicy:
+  enabled: true
+  whenScaled: Retain
+  whenDeleted: Retain
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi

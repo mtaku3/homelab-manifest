@@ -1,0 +1,39 @@
+image:
+  tag: version-6.7.9@sha256:4409f9f0f87378ba95d40811352f4f49338d276bb638c1e6d18a5579f332fbe8
+
+persistence:
+  enabled: true
+  storageClassName: piraeus-storage
+  storage: 5Gi
+
+config:
+  # DB_PASSWORD and STATIC_CRON_TOKEN
+  existingSecret: firefly-iii-runtime
+  env:
+    APP_URL: https://firefly.mtaku3.com
+    DB_HOST: firefly-iii-postgres
+    DB_CONNECTION: pgsql
+    DB_PORT: "5432"
+    DB_DATABASE: firefly
+    DB_USERNAME: firefly
+    DEFAULT_LANGUAGE: ja_JP
+    DEFAULT_LOCALE: equal
+    TZ: Asia/Tokyo
+    # Requests arrive through the NetBird reverse proxy.
+    TRUSTED_PROXIES: "**"
+
+# Runs recurring transactions, bill warnings and auto-budgets daily.
+cronjob:
+  enabled: true
+  schedule: "0 3 * * *"
+  auth:
+    existingSecret: firefly-iii-runtime
+    secretKey: STATIC_CRON_TOKEN
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
