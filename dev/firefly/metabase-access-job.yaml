@@ -1,10 +1,11 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: firefly-reporting
+  name: firefly-metabase-access
   namespace: firefly
   annotations:
-    # Rebuild the reporting schema (reporting.sql) after every sync.
+    # Apply the metabase_ro role and its column grants (metabase-access.sql)
+    # after every sync.
     argocd.argoproj.io/hook: PostSync
     argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
@@ -27,7 +28,7 @@ spec:
             - -c
             - >-
               psql -h firefly-iii-postgres -U firefly -d firefly
-              -v ro_password="$METABASE_RO_PASSWORD" -f /sql/reporting.sql
+              -v ro_password="$METABASE_RO_PASSWORD" -f /sql/metabase-access.sql
           env:
             - name: PGPASSWORD
               valueFrom:
@@ -37,7 +38,7 @@ spec:
             - name: METABASE_RO_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: firefly-reporting
+                  name: firefly-metabase-ro
                   key: METABASE_RO_PASSWORD
           securityContext:
             allowPrivilegeEscalation: false
@@ -55,4 +56,4 @@ spec:
       volumes:
         - name: sql
           configMap:
-            name: firefly-reporting-sql
+            name: firefly-metabase-access-sql

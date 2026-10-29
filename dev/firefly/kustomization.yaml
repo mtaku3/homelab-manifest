@@ -15,15 +15,15 @@ helmCharts:
 resources:
   - app-key-secret.yaml
   - runtime-secret.yaml
-  # Read-only reporting schema for Metabase (dev/metabase).
-  - reporting-secret.yaml
-  - reporting-job.yaml
+  # Read-only, column-whitelisted login for Metabase (dev/metabase).
+  - metabase-ro-secret.yaml
+  - metabase-access-job.yaml
 
 configMapGenerator:
-  - name: firefly-reporting-sql
+  - name: firefly-metabase-access-sql
     namespace: firefly
     files:
-      - reporting.sql
+      - metabase-access.sql
 
 patches:
   # The chart generates APP_KEY with `lookup`, which Argo CD cannot run, so
