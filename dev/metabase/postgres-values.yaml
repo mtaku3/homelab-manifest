@@ -1,0 +1,29 @@
+fullnameOverride: metabase-postgres
+
+auth:
+  username: metabase
+  database: metabase
+  existingSecret: metabase-runtime
+  secretKeys:
+    # The metabase user is the superuser, so Metabase and Postgres share it.
+    adminPasswordKey: MB_DB_PASS
+
+persistence:
+  enabled: true
+  storageClass: piraeus-storage
+  size: 5Gi
+  accessModes:
+    - ReadWriteOnce
+
+persistentVolumeClaimRetentionPolicy:
+  enabled: true
+  whenScaled: Retain
+  whenDeleted: Retain
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi

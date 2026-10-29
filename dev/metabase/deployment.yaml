@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metabase
+  namespace: metabase
+  labels:
+    app: metabase
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: metabase
+  template:
+    metadata:
+      labels:
+        app: metabase
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: metabase
+          image: docker.io/metabase/metabase:v0.63.22@sha256:c8677c9cab17a39b7167f04e0bec57c0cfa5d55906d8ba0a0408f55c417a4e4a
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: MB_DB_TYPE
+              value: postgres
+            - name: MB_DB_HOST
+              value: metabase-postgres
+            - name: MB_DB_PORT
+              value: "5432"
+            - name: MB_DB_DBNAME
+              value: metabase
+            - name: MB_DB_USER
+              value: metabase
+            - name: MB_DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: metabase-runtime
+                  key: MB_DB_PASS
+            # Encrypts database connection details stored in the application DB.
+            - name: MB_ENCRYPTION_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: metabase-runtime
+                  key: MB_ENCRYPTION_SECRET_KEY
+            # Published privately through the NetBird reverse proxy.
+            - name: MB_SITE_URL
+              value: https://metabase.mtaku3.com
+            - name: MB_SITE_LOCALE
+              value: ja
+            - name: MB_REPORT_TIMEZONE
+              value: Asia/Tokyo
+            - name: JAVA_TIMEZONE
+              value: Asia/Tokyo
+            - name: JAVA_OPTS
+              value: -Xmx1g
+            - name: MB_ANON_TRACKING_ENABLED
+              value: "false"
+            - name: MB_CHECK_FOR_UPDATES
+              value: "false"
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              cpu: 250m
+              memory: 1Gi
+            limits:
+              memory: 2Gi
+          startupProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: http
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
