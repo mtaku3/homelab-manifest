@@ -1,0 +1,14 @@
+helmCharts:
+  # Metabase's application database (its own users, questions and dashboards).
+  # The data it reports on is Firefly III's reporting schema, read as metabase_ro.
+  - repo: oci://registry-1.docker.io/cloudpirates
+    name: postgres
+    version: "0.21.2"
+    namespace: metabase
+    releaseName: metabase-postgres
+    valuesFile: postgres-values.yaml
+
+resources:
+  - runtime-secret.yaml
+  - deployment.yaml
+  - service.yaml

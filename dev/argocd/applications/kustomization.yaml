@@ -5,6 +5,7 @@ resources:
   - firefly.yaml
   - gitlab.yaml
   - hindsight.yaml
+  - metabase.yaml
   - metrics-server.yaml
   - mfsm.yaml
   - netbird.yaml
