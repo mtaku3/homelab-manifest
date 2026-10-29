@@ -11,4 +11,4 @@ clusterSecretsPermissions:
 # The operator pins the routing peer to 0.72.4, which is affected by
 # CVE-2026-105429 and CVE-2026-105428 (fixed in 0.74.7). Track the version
 # edge1 runs (nix-config netbird-server versions.netbird).
-routingClientImage: ghcr.io/netbirdio/netbird:0.81.4@sha256:0911a96049d95a37ee1653663a0d9005f77a0096a1dc0cac45d9c3a022256e85
+routingClientImage: ghcr.io/netbirdio/netbird:0.82.0@sha256:eca5b274c635bfbb04ec6724a0712d1146190dd450eea199eeb83916fdd94965
