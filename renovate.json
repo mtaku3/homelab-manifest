@@ -3,6 +3,9 @@
   "extends": [
     "config:recommended"
   ],
+  "kubernetes": {
+    "managerFilePatterns": ["/^dev/.+\\.ya?ml$/"]
+  },
   "customManagers": [
     {
       "customType": "regex",
@@ -18,7 +21,7 @@
       "customType": "regex",
       "managerFilePatterns": ["/.*y[a]?ml$/"],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+tag:\\s+(?<currentValue>\\S+)"
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n\\s+tag:\\s+[\"']?(?<currentValue>[^\\s@\"']+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?[\"']?"
       ],
       "datasourceTemplate": "{{datasource}}",
       "depNameTemplate": "{{depName}}",
@@ -29,6 +32,48 @@
     {
       "matchPackageNames": ["loxilb-io/loxilb"],
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(?:\\.(?<build>\\d+))?$"
+    },
+    {
+      "description": "Firefly III tags its releases version-X.Y.Z alongside floating version-X and version-X.Y tags.",
+      "matchDepNames": ["fireflyiii/core"],
+      "versioning": "regex:^version-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    },
+    {
+      "description": "cli-proxy-api builds are tagged <upstream version>-<patch commit>; compare on the upstream version only.",
+      "matchDepNames": ["ghcr.io/mtaku3/cli-proxy-api"],
+      "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-[0-9a-f]{8}$"
+    },
+    {
+      "description": "These images only publish floating tags; pin them to a digest so a rebuild arrives as a reviewable digest update.",
+      "matchDepNames": ["mtaku3/argocd-toolset", "ghcr.io/mtaku3/argocd-github-sha-plugin"],
+      "pinDigests": true
+    },
+    {
+      "description": "Update the VictoriaMetrics charts and the component images pinned in values-k8s-stack.yaml together.",
+      "matchDepNames": ["victoria-metrics-k8s-stack", "victoria-metrics-operator", "victoriametrics/*"],
+      "groupName": "victoria-metrics"
+    },
+    {
+      "description": "Patch releases and digest refreshes are low risk. There are no status checks on this repository, so merge without waiting for any.",
+      "matchUpdateTypes": ["patch", "digest"],
+      "automerge": true,
+      "automergeStrategy": "merge-commit",
+      "ignoreTests": true
+    },
+    {
+      "description": "Cluster infrastructure, stateful apps and deliberate pins: always review by hand.",
+      "matchDepNames": [
+        "cert-manager",
+        "sealed-secrets",
+        "piraeusdatastore/piraeus-operator",
+        "netbird-operator",
+        "ghcr.io/netbirdio/netbird",
+        "gitlab",
+        "docker.io/metabase/metabase",
+        "ghcr.io/mtaku3/cli-proxy-api",
+        "victoriametrics/*"
+      ],
+      "automerge": false
     },
     {
       "description": "GitLab is an archive until its repositories move elsewhere. Chart 10 (GitLab 19) drops the bundled PostgreSQL, Redis and MinIO it runs on, so stay on 9.x and keep taking its patch releases.",
