@@ -2,6 +2,7 @@ grafana:
   # The subchart ships 13.2.3; 13.2.4 fixes CVE-2026-33374. Drop this once the
   # chart's appVersion catches up.
   image:
+    # renovate: datasource=docker depName=grafana/grafana
     tag: 13.2.4-distroless
   envValueFrom:
     GF_AUTH_GOOGLE_CLIENT_ID:
@@ -67,19 +68,24 @@ external:
 # v1.154.x can OOM vmsingle on long-range /api/v1/series and label queries,
 # which Grafana's variable queries issue (VictoriaMetrics#11791). Upstream
 # recommends v1.153.0 until v1.155.0; drop these pins once the chart ships it.
+# Renovate tracks them in the victoria-metrics group, so the chart bump that
+# ships v1.155.0 lands next to the pin bump: drop the pins there instead.
 vmagent:
   spec:
     image:
+      # renovate: datasource=docker depName=victoriametrics/vmagent
       tag: v1.153.0
 
 vmalert:
   spec:
     image:
+      # renovate: datasource=docker depName=victoriametrics/vmalert
       tag: v1.153.0
 
 vmsingle:
   spec:
     image:
+      # renovate: datasource=docker depName=victoriametrics/victoria-metrics
       tag: v1.153.0
     retentionPeriod: "14d"
     extraArgs:
