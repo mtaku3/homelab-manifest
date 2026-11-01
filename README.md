@@ -14,7 +14,6 @@ dev/
   hindsight/          # Self-hosted long-term memory for coding agents
   metabase/           # BI dashboards over the Firefly III ledger
   metrics-server/     # metrics.k8s.io for HPA and kubectl top
-  mt4jm/              # Personal app
   netbird/            # NetBird operator: cluster access and published Services
   piraeus-datastore/  # LINSTOR-backed storage
   presenton/          # AI presentation generator backed by CLIProxyAPI
