@@ -18,7 +18,7 @@ spec:
       serviceAccountName: github-sha-plugin
       containers:
         - name: plugin
-          image: ghcr.io/mtaku3/argocd-github-sha-plugin:main
+          image: ghcr.io/mtaku3/argocd-github-sha-plugin:main@sha256:7f6628ae684a9708632d638e9e4b018590b41f5737854cea465cba18b025ccbd
           ports:
             - containerPort: 4355
           volumeMounts:
