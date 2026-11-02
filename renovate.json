@@ -44,6 +44,11 @@
       "matchDepNames": ["gitlab"],
       "matchUpdateTypes": ["major"],
       "enabled": false
+    },
+    {
+      "description": "vmagent, vmalert and vmsingle are pinned to the same VictoriaMetrics release in values-k8s-stack.yaml.",
+      "matchPackageNames": ["victoriametrics/vmagent", "victoriametrics/vmalert", "victoriametrics/victoria-metrics"],
+      "groupName": "victoriametrics"
     }
   ]
 }

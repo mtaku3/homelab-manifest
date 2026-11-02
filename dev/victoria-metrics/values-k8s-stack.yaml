@@ -2,6 +2,7 @@ grafana:
   # The subchart ships 13.2.3; 13.2.4 fixes CVE-2026-33374. Drop this once the
   # chart's appVersion catches up.
   image:
+    repository: grafana/grafana
     tag: 13.2.4-distroless
   envValueFrom:
     GF_AUTH_GOOGLE_CLIENT_ID:
@@ -70,16 +71,19 @@ external:
 vmagent:
   spec:
     image:
+      repository: victoriametrics/vmagent
       tag: v1.153.0
 
 vmalert:
   spec:
     image:
+      repository: victoriametrics/vmalert
       tag: v1.153.0
 
 vmsingle:
   spec:
     image:
+      repository: victoriametrics/victoria-metrics
       tag: v1.153.0
     retentionPeriod: "14d"
     extraArgs:
