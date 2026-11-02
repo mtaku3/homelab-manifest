@@ -3,6 +3,10 @@
   "extends": [
     "config:recommended"
   ],
+  "kubernetes": {
+    "description": "Plain manifests under dev/. The kubernetes manager has no default file patterns, so their images were never checked.",
+    "managerFilePatterns": ["/^dev/.+\\.ya?ml$/"]
+  },
   "customManagers": [
     {
       "customType": "regex",
