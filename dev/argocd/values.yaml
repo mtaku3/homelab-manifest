@@ -71,8 +71,8 @@ repoServer:
 
   extraContainers:
     - name: homelab-manifest-build-cmp
-      image: mtaku3/argocd-toolset:latest
-      imagePullPolicy: Always
+      image: mtaku3/argocd-toolset:main@sha256:9b6612de83902ed418c2d674c07fc92ec4e48b73b573580263f09304f221403d
+      imagePullPolicy: IfNotPresent
       command: [/var/run/argocd/argocd-cmp-server]
       securityContext:
         runAsNonRoot: true

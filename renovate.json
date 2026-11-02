@@ -3,6 +3,10 @@
   "extends": [
     "config:recommended"
   ],
+  "helm-values": {
+    "description": "Also the <name>-values.yaml and values-<name>.yaml files passed to helmCharts; the default pattern only matches values.yaml.",
+    "managerFilePatterns": ["/(^|/)values\\.ya?ml$/", "/^dev/.+[-.]values\\.ya?ml$/", "/^dev/.+/values-[^/]+\\.ya?ml$/"]
+  },
   "kubernetes": {
     "description": "Plain manifests under dev/. The kubernetes manager has no default file patterns, so their images were never checked.",
     "managerFilePatterns": ["/^dev/.+\\.ya?ml$/"]
