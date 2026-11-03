@@ -60,7 +60,7 @@ spec:
               readOnly: true
       containers:
         - name: cli-proxy-api
-          image: ghcr.io/mtaku3/cli-proxy-api:v8.0.3@sha256:78cf7e75cda6ce6714201f947f6af59c14bc26047e7a8848bbaba1a6cab47168
+          image: ghcr.io/mtaku3/cli-proxy-api:v8.0.51@sha256:0a79e6649d245046bcb4e6858b6c8a86c3c690ceebb7344271fe72b2479a0489
           imagePullPolicy: IfNotPresent
           command:
             - /CLIProxyAPI/CLIProxyAPI
