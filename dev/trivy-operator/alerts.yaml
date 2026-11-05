@@ -1,0 +1,33 @@
+# Reports are recreated every 24h (scannerReportTTL), so a finding's series
+# briefly disappears while its image is rescanned. max_over_time over a day
+# keeps the alert from resolving and firing again on every rescan; it also
+# means an alert clears up to a day after the fix is deployed.
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMRule
+metadata:
+  name: trivy-operator
+  namespace: trivy-operator
+spec:
+  groups:
+    - name: trivy-operator
+      rules:
+        - alert: ImageVulnerabilities
+          expr: |
+            max_over_time(
+              trivy_image_vulnerabilities{severity=~"Critical|High"}[1d]
+            ) > 0
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.image_repository }}:{{ $labels.image_tag }} has {{ $value }} {{ $labels.severity }} vulnerabilities"
+            description: "Container `{{ $labels.container_name }}` of {{ $labels.resource_kind }} `{{ $labels.resource_name }}`. Details: `kubectl -n {{ $labels.namespace }} get vulnerabilityreports {{ $labels.name }} -o yaml`."
+        - alert: ImageExposedSecrets
+          expr: |
+            max_over_time(
+              trivy_image_exposedsecrets{severity=~"Critical|High"}[1d]
+            ) > 0
+          labels:
+            severity: warning
+          annotations:
+            summary: "{{ $labels.image_repository }}:{{ $labels.image_tag }} contains {{ $value }} {{ $labels.severity }} secrets"
+            description: "Container `{{ $labels.container_name }}` of {{ $labels.resource_kind }} `{{ $labels.resource_name }}`. Details: `kubectl -n {{ $labels.namespace }} get exposedsecretreports {{ $labels.name }} -o yaml`."

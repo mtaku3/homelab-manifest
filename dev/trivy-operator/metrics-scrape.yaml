@@ -1,0 +1,14 @@
+# The chart only ships a Prometheus Operator ServiceMonitor; VictoriaMetrics
+# scrapes the operator's metrics through this instead.
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: trivy-operator
+  namespace: trivy-operator
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: trivy-operator
+      app.kubernetes.io/instance: trivy-operator
+  endpoints:
+    - port: metrics

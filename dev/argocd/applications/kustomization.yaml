@@ -12,4 +12,5 @@ resources:
   - piraeus-datastore.yaml
   - presenton.yaml
   - sealed-secrets.yaml
+  - trivy-operator.yaml
   - victoria-metrics.yaml

@@ -1,0 +1,32 @@
+operator:
+  # One node: run a single scan job at a time instead of the default 10.
+  scanJobsConcurrentLimit: 1
+  # Reports are deleted after a day, so every image is rescanned daily
+  # against the current vulnerability database.
+  scannerReportTTL: "24h"
+  vulnerabilityScannerEnabled: true
+  exposedSecretScannerEnabled: true
+  # Only image CVEs and exposed secrets are wanted. The other scanners audit
+  # workload and cluster configuration of third-party charts, and SBOM reports
+  # are large objects in etcd that only feed ClusterVulnerabilityReports for
+  # control-plane pods (the control plane here runs as NixOS services).
+  sbomGenerationEnabled: false
+  configAuditScannerEnabled: false
+  rbacAssessmentScannerEnabled: false
+  infraAssessmentScannerEnabled: false
+  clusterComplianceEnabled: false
+  # Download the vulnerability database once into a shared Trivy server
+  # instead of in every scan job.
+  builtInTrivyServer: true
+
+trivy:
+  # High and critical findings, including those with no fixed version yet.
+  severity: HIGH,CRITICAL
+  ignoreUnfixed: false
+  # The Trivy server keeps its database in an emptyDir; it is re-downloaded
+  # if the pod restarts.
+  storageClassEnabled: false
+
+compliance:
+  # The compliance scanner is off; don't create its report objects either.
+  specs: []

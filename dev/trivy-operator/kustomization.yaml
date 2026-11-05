@@ -1,0 +1,15 @@
+# Scans the images of running workloads for known vulnerabilities and for
+# secrets baked into them. Findings are exported as metrics and alerted on
+# from VictoriaMetrics (alerts.yaml).
+helmCharts:
+  - repo: https://aquasecurity.github.io/helm-charts/
+    name: trivy-operator
+    version: "0.38.1"
+    includeCRDs: true
+    namespace: trivy-operator
+    releaseName: trivy-operator
+    valuesFile: values.yaml
+
+resources:
+  - metrics-scrape.yaml
+  - alerts.yaml
