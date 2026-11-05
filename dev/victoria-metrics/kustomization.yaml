@@ -8,7 +8,7 @@ helmCharts:
     valuesFile: values-k8s-stack.yaml
   - repo: https://victoriametrics.github.io/helm-charts/
     name: victoria-metrics-operator
-    version: "0.68.1"
+    version: "0.68.2"
     includeCRDs: true
     namespace: victoria-metrics
     releaseName: vm
