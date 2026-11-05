@@ -20,10 +20,9 @@ operator:
   builtInTrivyServer: true
 
 trivy:
-  # Report only what can be acted on: high and critical findings that have a
-  # fixed version.
+  # High and critical findings, including those with no fixed version yet.
   severity: HIGH,CRITICAL
-  ignoreUnfixed: true
+  ignoreUnfixed: false
   # The Trivy server keeps its database in an emptyDir; it is re-downloaded
   # if the pod restarts.
   storageClassEnabled: false

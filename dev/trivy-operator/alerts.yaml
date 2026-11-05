@@ -19,7 +19,7 @@ spec:
           labels:
             severity: warning
           annotations:
-            summary: "{{ $labels.image_repository }}:{{ $labels.image_tag }} has {{ $value }} fixable {{ $labels.severity }} vulnerabilities"
+            summary: "{{ $labels.image_repository }}:{{ $labels.image_tag }} has {{ $value }} {{ $labels.severity }} vulnerabilities"
             description: "Container `{{ $labels.container_name }}` of {{ $labels.resource_kind }} `{{ $labels.resource_name }}`. Details: `kubectl -n {{ $labels.namespace }} get vulnerabilityreports {{ $labels.name }} -o yaml`."
         - alert: ImageExposedSecrets
           expr: |
