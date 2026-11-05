@@ -1,7 +1,7 @@
 helmCharts:
   - repo: oci://ghcr.io/netbirdio/helm-charts
     name: netbird-operator
-    version: "0.8.0"
+    version: "0.9.0"
     includeCRDs: true
     namespace: netbird
     releaseName: netbird-operator
