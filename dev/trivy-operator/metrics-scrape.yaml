@@ -1,5 +1,6 @@
 # The chart only ships a Prometheus Operator ServiceMonitor; VictoriaMetrics
-# scrapes the operator's metrics through this instead.
+# scrapes the operator's metrics through this instead. honorLabels keeps the
+# scanned workload's namespace in `namespace` instead of the operator's.
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMServiceScrape
 metadata:
@@ -12,3 +13,4 @@ spec:
       app.kubernetes.io/instance: trivy-operator
   endpoints:
     - port: metrics
+      honorLabels: true
