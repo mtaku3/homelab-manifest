@@ -6,7 +6,7 @@ apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMRule
 metadata:
   name: trivy-operator
-  namespace: trivy-system
+  namespace: trivy-operator
 spec:
   groups:
     - name: trivy-operator
