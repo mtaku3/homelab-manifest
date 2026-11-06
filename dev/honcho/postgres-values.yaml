@@ -1,0 +1,42 @@
+fullnameOverride: honcho-postgres
+
+image:
+  registry: ghcr.io
+  repository: mtaku3/postgres-pgroonga-pgvector
+  tag: main@sha256:84f484f94320a8288580ef40e0864e1ebc8edb77468e0245d67bc0db2c7f672f
+  imagePullPolicy: IfNotPresent
+
+auth:
+  username: honcho
+  database: honcho
+  existingSecret: honcho-runtime
+  secretKeys:
+    adminPasswordKey: postgres-password
+
+# The extensions Honcho's own database/init.sql creates.
+initdb:
+  scripts:
+    00-extensions.sql: |
+      CREATE EXTENSION IF NOT EXISTS vector;
+      CREATE EXTENSION IF NOT EXISTS pg_trgm;
+      CREATE EXTENSION IF NOT EXISTS btree_gin;
+
+persistence:
+  enabled: true
+  storageClass: piraeus-storage
+  size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+
+persistentVolumeClaimRetentionPolicy:
+  enabled: true
+  whenScaled: Retain
+  whenDeleted: Retain
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 2Gi

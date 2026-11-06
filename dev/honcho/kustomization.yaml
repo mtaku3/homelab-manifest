@@ -1,0 +1,21 @@
+helmCharts:
+  - repo: oci://registry-1.docker.io/cloudpirates
+    name: postgres
+    version: "0.21.2"
+    namespace: honcho
+    releaseName: honcho-postgres
+    valuesFile: postgres-values.yaml
+
+resources:
+  - runtime-secret.yaml
+  - redis.yaml
+  - api.yaml
+  - deriver.yaml
+
+# Settings shared by the API and the deriver. The name gets a content hash, so
+# editing honcho.env rolls both Deployments.
+configMapGenerator:
+  - name: honcho-config
+    namespace: honcho
+    envs:
+      - honcho.env

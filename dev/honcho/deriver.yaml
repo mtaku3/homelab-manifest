@@ -1,0 +1,40 @@
+# Background worker: extracts conclusions from new messages, writes
+# summaries and peer cards, and runs dreams. It has no HTTP endpoint.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: honcho-deriver
+  namespace: honcho
+  labels:
+    app: honcho-deriver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: honcho-deriver
+  template:
+    metadata:
+      labels:
+        app: honcho-deriver
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: deriver
+          image: ghcr.io/plastic-labs/honcho:v3.6.0@sha256:eb906a2d251aa48b22347e4465b40785ea7a84e2bfd1105780416bf1f0121099
+          imagePullPolicy: IfNotPresent
+          command: ["/app/.venv/bin/python", "-m", "src.deriver"]
+          envFrom:
+            - configMapRef:
+                name: honcho-config
+            - secretRef:
+                name: honcho-runtime
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "512Mi"
+            limits:
+              memory: "2Gi"
