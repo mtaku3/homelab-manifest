@@ -11,6 +11,7 @@ resources:
   - redis.yaml
   - api.yaml
   - deriver.yaml
+  - dashboard.yaml
 
 # Settings shared by the API and the deriver. The name gets a content hash, so
 # editing honcho.env rolls both Deployments.
