@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: honcho-api
+  namespace: honcho
+  labels:
+    app: honcho-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: honcho-api
+  template:
+    metadata:
+      labels:
+        app: honcho-api
+    spec:
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: api
+          image: ghcr.io/plastic-labs/honcho:v3.6.0@sha256:eb906a2d251aa48b22347e4465b40785ea7a84e2bfd1105780416bf1f0121099
+          imagePullPolicy: IfNotPresent
+          # The upstream entrypoint applies pending migrations, then serves.
+          command: ["sh", "docker/entrypoint.sh"]
+          ports:
+            - name: http
+              containerPort: 8000
+          envFrom:
+            - configMapRef:
+                name: honcho-config
+            - secretRef:
+                name: honcho-runtime
+          securityContext:
+            allowPrivilegeEscalation: false
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              memory: "2Gi"
+          startupProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            # Migrations run before the server listens.
+            failureThreshold: 120
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            periodSeconds: 30
+            timeoutSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: honcho-api
+  namespace: honcho
+spec:
+  selector:
+    app: honcho-api
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http
