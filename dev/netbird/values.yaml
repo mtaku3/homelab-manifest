@@ -12,3 +12,15 @@ clusterSecretsPermissions:
 # CVE-2026-105429 and CVE-2026-105428 (fixed in 0.74.7). Track the version
 # edge1 runs (nix-config netbird-server versions.netbird).
 routingClientImage: ghcr.io/netbirdio/netbird:0.81.4@sha256:0911a96049d95a37ee1653663a0d9005f77a0096a1dc0cac45d9c3a022256e85
+# Unreleased operator main (mtaku3/netbird-operator-image): released operators
+# hard-code kubeapi-proxy 0.0.4, which impersonates an empty user for peers
+# without one (setup-key peers like helios), and the API server rejects that.
+# Only main can point the operator at another kubeapi-proxy image; the flag
+# itself is passed in kustomization.yaml, since chart 0.8.0 has no value for it.
+# Back to a release once one includes netbirdio/kubernetes-operator#479.
+operator:
+  image:
+    repository: mtaku3/netbird-operator
+    tag: 24480c36b1dd3c39fa9456fcf42677bb068628b9
+  imagePullSecrets:
+    - name: ghcr-pull-secret
