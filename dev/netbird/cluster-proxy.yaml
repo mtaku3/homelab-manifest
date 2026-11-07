@@ -58,3 +58,19 @@ subjects:
   - kind: Group
     name: admins
     apiGroup: rbac.authorization.k8s.io
+---
+# Members of the NetBird group "k8s-admins" (helios) are cluster admins. helios
+# is a setup-key peer, so it reaches the cluster as "netbird:peer:<peer ID>"
+# with its NetBird groups.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: netbird-k8s-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: Group
+    name: k8s-admins
+    apiGroup: rbac.authorization.k8s.io

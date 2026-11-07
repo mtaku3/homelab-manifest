@@ -8,5 +8,17 @@ helmCharts:
     valuesFile: values.yaml
 resources:
   - secret.yaml
+  - ghcr-pull-secret.yaml
   - network-router.yaml
   - cluster-proxy.yaml
+patches:
+  # kubeapi-proxy 0.0.6 impersonates "netbird:peer:<peer ID>" for peers
+  # without a user (netbirdio/netbird-kubeapi-proxy#58), so setup-key peers can
+  # use the ClusterProxy too.
+  - target:
+      kind: Deployment
+      name: netbird-operator
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --kubeapi-proxy-image=ghcr.io/netbirdio/netbird-kubeapi-proxy:v0.0.6@sha256:d346f9bebda435d6eeb69dd9ab8e6074eda6aaa36eca73e9bb91ef7d562ab045
