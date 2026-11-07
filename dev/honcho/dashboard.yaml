@@ -1,0 +1,76 @@
+# Community dashboard for self-hosted Honcho (outpoints/honcho-dashboard).
+# Honcho itself ships no UI. The browser talks only to this pod; its
+# same-origin proxy forwards to the in-cluster API. 1.4.0 has no server-side
+# token, so the admin JWT is entered per browser under CONFIG. Write actions
+# stay hidden until toggled on in the UI. Exposed only inside NetBird.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: honcho-dashboard
+  namespace: honcho
+  labels:
+    app: honcho-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: honcho-dashboard
+  template:
+    metadata:
+      labels:
+        app: honcho-dashboard
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        runAsGroup: 1001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: dashboard
+          image: ghcr.io/outpoints/honcho-dashboard:1.4.0@sha256:48c1b337b7ce113dc49ad6cfe9e15e21c4ba745491577ca71541ded0fb006f4f
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: HONCHO_PROXY_BASE_URL
+              value: http://honcho-api.honcho.svc.cluster.local:8000
+            - name: HONCHO_PROXY_ALLOWED_BASES
+              value: http://honcho-api.honcho.svc.cluster.local:8000
+          ports:
+            - name: http
+              containerPort: 3000
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /api/operator/runtime
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            httpGet:
+              path: /api/operator/runtime
+              port: http
+            periodSeconds: 30
+            timeoutSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: honcho-dashboard
+  namespace: honcho
+spec:
+  selector:
+    app: honcho-dashboard
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
