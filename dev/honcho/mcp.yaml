@@ -34,7 +34,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: mcp
-          image: ghcr.io/mtaku3/honcho-mcp:3326373c35f6538fb3b7af97803abe328c5aafb4
+          image: ghcr.io/mtaku3/honcho-mcp:3326373c35f6538fb3b7af97803abe328c5aafb4@sha256:03e84bccf2b2bfd8e7b5f60c04d586f2ad700032d501229577405f0272d9347f
           imagePullPolicy: IfNotPresent
           env:
             - name: HONCHO_API_URL
