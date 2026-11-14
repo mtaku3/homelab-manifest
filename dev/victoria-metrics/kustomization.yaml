@@ -15,7 +15,7 @@ helmCharts:
     valuesFile: values-operator.yaml
 
 resources:
-  - grafana/google-sso-secret.yaml
+  - grafana/pocket-id-oidc.yaml
   - secrets/etcd-certs.yaml
   - control-plane-scrapes.yaml
   - secrets/discord-webhook.yaml
