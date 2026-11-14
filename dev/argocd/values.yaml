@@ -13,21 +13,23 @@ configs:
 
   cm:
     url: https://argocd.mtaku3.com
-    dex.config: |
-      connectors:
-        - type: google
-          id: google
-          name: Google
-          config:
-            clientID: $google-sso-secret:client-id
-            clientSecret: $google-sso-secret:client-secret
-            hostedDomains:
-              - mtaku3.com
+    # The built-in "admin" is an easy brute-force target; admin-homelab is the
+    # admin account (password in 1Password "Argo CD 👑"). Argo CD splits these
+    # keys on dots, so the name can't be admin.homelab.
+    admin.enabled: "false"
+    accounts.admin-homelab: login
+    # Daily logins go through Pocket ID and are read-only.
+    oidc.config: |
+      name: Pocket ID
+      issuer: https://id.mtaku3.com
+      clientID: c43f44f6-e943-471c-9644-e0930ab018c1
+      clientSecret: $pocket-id-oidc:client-secret
+      requestedScopes: ["openid", "profile", "email", "groups"]
+      enablePKCEAuthentication: true
 
   rbac:
-    scopes: "[email]"
     policy.csv: |
-      g, me@mtaku3.com, role:admin
+      g, admin-homelab, role:admin
     policy.default: role:readonly
 
   cmp:
@@ -53,6 +55,9 @@ configs:
               chmod +x "$REPO_ROOT/scripts/build.sh"
               NAMESPACE="${PARAM_NAMESPACE:-$ARGOCD_APP_NAMESPACE}"
               "$REPO_ROOT/scripts/build.sh" . "$NAMESPACE"
+
+dex:
+  enabled: false
 
 redis-ha:
   enabled: false

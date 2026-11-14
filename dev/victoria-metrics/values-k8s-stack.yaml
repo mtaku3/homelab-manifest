@@ -4,27 +4,35 @@ grafana:
   image:
     repository: grafana/grafana
     tag: 13.2.4-distroless
+  # admin.homelab is the admin account (password in 1Password "Grafana 👑");
+  # the chart's generated admin password is ignored once the user exists.
+  adminUser: admin.homelab
   envValueFrom:
-    GF_AUTH_GOOGLE_CLIENT_ID:
+    GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
       secretKeyRef:
-        name: google-sso-secret
-        key: client-id
-    GF_AUTH_GOOGLE_CLIENT_SECRET:
-      secretKeyRef:
-        name: google-sso-secret
+        name: grafana-pocket-id-oidc
         key: client-secret
   grafana.ini:
     server:
       root_url: https://grafana.mtaku3.com
-    auth.google:
+    # Daily logins go through Pocket ID and are Viewer only.
+    auth.generic_oauth:
       enabled: true
-      client_id: $__env{GF_AUTH_GOOGLE_CLIENT_ID}
-      client_secret: $__env{GF_AUTH_GOOGLE_CLIENT_SECRET}
-      scopes: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
-      auth_url: https://accounts.google.com/o/oauth2/auth
-      token_url: https://accounts.google.com/o/oauth2/token
-      allowed_domains: mtaku3.com
+      name: Pocket ID
+      client_id: 3f51e8b0-ae5f-4d34-b8b0-6927480a1ec2
+      client_secret: $__env{GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET}
+      scopes: openid profile email groups
+      auth_url: https://id.mtaku3.com/authorize
+      token_url: https://id.mtaku3.com/api/oidc/token
+      api_url: https://id.mtaku3.com/api/oidc/userinfo
+      use_pkce: true
       allow_sign_up: true
+      login_attribute_path: preferred_username
+      email_attribute_path: email
+      name_attribute_path: name
+      role_attribute_path: "'Viewer'"
+      role_attribute_strict: true
+      allow_assign_grafana_admin: false
     date_formats:
       default_timezone: Asia/Tokyo
   persistence:
