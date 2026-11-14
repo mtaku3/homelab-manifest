@@ -15,7 +15,8 @@ grafana:
   grafana.ini:
     server:
       root_url: https://grafana.mtaku3.com
-    # Daily logins go through Pocket ID and are Viewer only.
+    # Daily logins go through Pocket ID as Editor: they can change dashboards
+    # and alerts, but not users, data sources or server settings.
     auth.generic_oauth:
       enabled: true
       name: Pocket ID
@@ -30,7 +31,7 @@ grafana:
       login_attribute_path: preferred_username
       email_attribute_path: email
       name_attribute_path: name
-      role_attribute_path: "'Viewer'"
+      role_attribute_path: "'Editor'"
       role_attribute_strict: true
       allow_assign_grafana_admin: false
     date_formats:

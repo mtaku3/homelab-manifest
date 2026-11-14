@@ -18,7 +18,7 @@ configs:
     # keys on dots, so the name can't be admin.homelab.
     admin.enabled: "false"
     accounts.admin-homelab: login
-    # Daily logins go through Pocket ID and are read-only.
+    # Daily logins go through Pocket ID and get role:developer (see rbac).
     oidc.config: |
       name: Pocket ID
       issuer: https://id.mtaku3.com
@@ -28,8 +28,16 @@ configs:
       enablePKCEAuthentication: true
 
   rbac:
+    # Pocket ID's homelab-admins (the daily account) may operate applications
+    # but not change Argo CD's own settings (clusters, repositories, projects,
+    # accounts, certificates); that stays with admin-homelab.
     policy.csv: |
       g, admin-homelab, role:admin
+      p, role:developer, applications, *, */*, allow
+      p, role:developer, applicationsets, *, */*, allow
+      p, role:developer, logs, get, */*, allow
+      g, role:developer, role:readonly
+      g, homelab-admins, role:developer
     policy.default: role:readonly
 
   cmp:
