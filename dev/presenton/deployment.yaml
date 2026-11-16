@@ -22,7 +22,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: presenton
-          image: ghcr.io/presenton/presenton:v0.9.11-beta
+          image: ghcr.io/presenton/presenton:v0.9.12-beta
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
