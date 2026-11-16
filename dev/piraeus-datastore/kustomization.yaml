@@ -1,6 +1,6 @@
 resources:
   # renovate: datasource=github-releases depName=piraeusdatastore/piraeus-operator
-  - https://github.com/piraeusdatastore/piraeus-operator/releases/download/v2.12.0/manifest.yaml
+  - https://github.com/piraeusdatastore/piraeus-operator/releases/download/v2.12.1/manifest.yaml
   - linstor-cluster.yaml
   - storage-pools.yaml
   - no-drbd-loader.yaml
