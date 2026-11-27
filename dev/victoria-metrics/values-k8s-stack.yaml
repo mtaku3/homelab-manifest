@@ -31,7 +31,10 @@ grafana:
       login_attribute_path: preferred_username
       email_attribute_path: email
       name_attribute_path: name
-      role_attribute_path: "'Editor'"
+      # grafana.ini drops the quotes around a value that is quoted end to end,
+      # so a bare 'Editor' literal turns into a lookup of a missing "Editor"
+      # claim. Start the expression with a function call to keep the quotes.
+      role_attribute_path: "contains(groups[*], 'homelab-admins') && 'Editor'"
       role_attribute_strict: true
       allow_assign_grafana_admin: false
     date_formats:
