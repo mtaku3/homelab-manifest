@@ -9,7 +9,7 @@ helmCharts:
 
 resources:
   - applications/
-  - google-sso-secret.yaml
+  - pocket-id-oidc.yaml
   - repo-homelab-manifest.yaml
   - repo-mfsm.yaml
   - github-sha-plugin/

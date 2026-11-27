@@ -7,3 +7,4 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
+  - pocket-id-oidc.yaml

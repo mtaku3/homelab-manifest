@@ -1,0 +1,14 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: grafana-pocket-id-oidc
+  namespace: victoria-metrics
+spec:
+  encryptedData:
+    client-secret: AgDNknobg1YLD6vjkgCxEPvOHMCVAmfOuh9AX/7KQB3kG9q/Rqa64cCNtGBg/hNWfU5kJPlieWJf5xvdzz8IYRJ2MJtYe062palGOTgVq5CLh5Aj8xJBW5+CzfQ0t8H0CF31pjD09lPU95sNwPlT+h3IyDgFzsodVxNVfhXDr0mKcofsY/bu+IqPPxEE5xQjHXsPZQ4PbBfm8+mOFI4tO25sCku2oDR8THW6F9OiTLEqpUuT0wyPrI8JGDlqCLXlgD+viw5/izH8Zrt04PU2a4bFs2zvyNu3PMaOWw3Wr/xf9PXogcrF59UoagxK5oWncs9TltvqdFxc6IdliKdahDiGLE2Nz/2gKZ8UJILx9+V2q/EU9JVgjJqaVb0ih6R+RUI9TZKjvcaT1stsmwvQbNmdsEKmy64twhTtRP41wte47ElM+28bAOcbiN9blnuiXgWYmaz/aAEPQi4dJUc10cStnWrSfV7RoTIOKnNk9Nu+x4mSp6Q0fkOgAYtge1hv4J23R4JUiQkEaQoGYTKDxHKMqWrgXDYsVfDhyh46VrDMDLGWI0XaGmKRP9s2IXb2pAMyoNRLSjUxfiqkl0Bm8VP2qhs9Bq8+mwCRTqp/Nb5kPZtL2K9ME0iznyyrVlbwtXsUvD25b3Y6Hul5RSE+Hbqn7nW5I+7W0yGcgxpY1cDKNXCQEY7/MByygAmRNo18UGigzsrIx/H5lsDuZ4vE4CImDvBkT8bjxXbDlj5Wmifa6Q==
+  template:
+    metadata:
+      name: grafana-pocket-id-oidc
+      namespace: victoria-metrics
+    type: Opaque

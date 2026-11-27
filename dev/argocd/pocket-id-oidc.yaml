@@ -1,0 +1,16 @@
+---
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: pocket-id-oidc
+  namespace: argocd
+spec:
+  encryptedData:
+    client-secret: AgCrljobcc+Zv6CkbHwMMlNDwBnN+KYMK4MqbZW7BJu4fyoslUwN5crP0oo/EPsnrnumiVOB6CXs1ZFOQiEKi6xeZz3Iql66luUhT8gSgYp3Eb2sr2k/P7vFH6xs6M8oTbY2SRW7sQVZoOlw3oxHCm1gkwCUZUZvFelPJ+0M31hBffXGFMRK3iKEQckpIC3+FjzqqJJg4b5ElINyCjA/lm4/7EyksBJJVAkjoMRKGb6raI6VsT7uM0UHZk2rC7EbwF2bXp0slvigjo7VwDYK837/VWT/AwrgI0t+1ByXEPL8SuzRIo9VNSQnZpBpcEFfxTqF9VouMUQT8ipdDR/8GLiKLpl+AGilkKyvMDQurtje0bFxKJEULgmQcpfCd8ceHi/jCfqxi19RzQts8BqVNOrL7PIrIGe/CEkZ6ONj3wsSK1ypsSLTQXzcHE9ALXMs04gCstZvDuuabksBtJsEdKdfFNe2SuP5sQ1xmFFnr7c6HyYlRG8KbLv0tTeza89YpXIcSOyvaq1/teeo1n04DrdqfrO/JJOuKbQGmVfqcJSLtpJNaFm/SHtm+ag6cIjYunNYVfOnAs4T39FAKFpEd6xa1KwUjI/orRcr2LDwEecBFWbDV0mniojpEKwU9Hm/ndgVft0DtOl6OnlyOJD4Ms26acEbqXD4XeUlR9eoaZFqTboEDMLCm22dkDqCJggw74P52zrw0oZXBCIUWoJF4hn4Ez1SBU+CPTeXIljJczRjng==
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/part-of: argocd
+      name: pocket-id-oidc
+      namespace: argocd
+    type: Opaque

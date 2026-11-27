@@ -19,6 +19,19 @@ global:
   minio:
     replicas: 1
 
+  # Daily logins go through Pocket ID and link to the existing mtaku3 user by
+  # email; no new users are created from it. The admin is the local
+  # admin.homelab (password in 1Password "GitLab 👑").
+  appConfig:
+    omniauth:
+      enabled: true
+      allowSingleSignOn: []
+      blockAutoCreatedUsers: true
+      autoLinkUser: [openid_connect]
+      providers:
+        - secret: gitlab-pocket-id-oidc
+          key: provider
+
 # This instance is kept as a read-only archive; nothing pushes to it or runs CI.
 gitlab-runner:
   install: false
